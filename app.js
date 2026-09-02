@@ -104,7 +104,7 @@ inputBuscador.addEventListener("input", (e) => {
     // Si el usuario escribe otra letra rápidamente, cancelamos la cuenta regresiva anterior
     clearTimeout(timeoutBusqueda);
     
-    // Iniciamos una nueva cuenta regresiva de 300 milisegundos
+    // Iniciamos una nueva cuenta regresiva de 250 milisegundos
     timeoutBusqueda = setTimeout(() => {
         const textoBusqueda = e.target.value.toLowerCase();
         
