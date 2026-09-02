@@ -1,0 +1,48 @@
+/* Fuente global */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f9fa;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.card-title {
+    font-weight: 600;
+}
+
+/* --- ESTILOS MODO OSCURO --- */
+body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+body.dark-mode #navbar {
+    background-color: #1e1e1e !important;
+    border-bottom: 1px solid #333;
+}
+
+body.dark-mode .card {
+    background-color: #1e1e1e;
+    border: 1px solid #333 !important;
+}
+
+body.dark-mode .card-body {
+    color: #e0e0e0;
+}
+
+body.dark-mode .card-title {
+    color: #ffffff;
+}
+
+body.dark-mode .text-muted, 
+body.dark-mode .text-secondary,
+body.dark-mode #subtitulo-principal {
+    color: #a0a0a0 !important;
+}
+
+body.dark-mode .card-footer {
+    background-color: #1e1e1e !important;
+}
+
+#contenedor-carrito {
+    transition: all 0.3s ease-in-out;
+}
