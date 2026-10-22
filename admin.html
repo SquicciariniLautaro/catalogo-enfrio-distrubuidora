@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Panel EnFrío Distribuidora</title>
+    <meta name="theme-color" content="#0b2a3c">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body class="admin">
+
+    <p class="aviso-prueba" id="aviso-prueba" hidden>
+        Modo prueba: los cambios se guardan solo en este navegador, no en el catálogo real.
+    </p>
+
+    <!-- Ingreso -->
+    <main class="acceso" id="pantalla-acceso">
+        <div class="acceso__caja">
+            <img src="img/logo-negro.png" alt="EnFrío Distribuidora" class="acceso__logo">
+            <h1 class="acceso__titulo">Panel de administración</h1>
+
+            <p class="estado" id="acceso-cargando">Cargando…</p>
+
+            <form id="form-ingreso" class="formulario" hidden>
+                <label class="campo">
+                    <span>Contraseña</span>
+                    <input type="password" id="ingreso-contrasena" autocomplete="current-password" required>
+                </label>
+                <button class="boton boton--primario" type="submit">Entrar</button>
+            </form>
+
+            <form id="form-inicial" class="formulario" hidden>
+                <p class="ayuda">Configuración inicial. Se hace una sola vez: pegá la llave de GitHub (ver la guía en el README) y elegí la contraseña que va a usar el negocio para entrar.</p>
+                <label class="campo" id="campo-llave-inicial">
+                    <span>Llave de GitHub</span>
+                    <input type="password" id="inicial-llave" autocomplete="off" placeholder="github_pat_…">
+                </label>
+                <label class="campo">
+                    <span>Contraseña del panel (mínimo 10 caracteres)</span>
+                    <input type="password" id="inicial-contrasena" autocomplete="new-password" minlength="10" required>
+                </label>
+                <label class="campo">
+                    <span>Repetir contraseña</span>
+                    <input type="password" id="inicial-repetir" autocomplete="new-password" minlength="10" required>
+                </label>
+                <button class="boton boton--primario" type="submit">Guardar y entrar</button>
+            </form>
+
+            <p class="error" id="acceso-error" role="alert" hidden></p>
+        </div>
+    </main>
+
+    <!-- Panel -->
+    <div id="pantalla-panel" hidden>
+        <header class="encabezado">
+            <div class="contenedor encabezado__fila">
+                <div class="admin-marca">
+                    <img src="img/logo-negro.png" alt="EnFrío Distribuidora" class="marca__logo">
+                    <span>Panel</span>
+                </div>
+                <div class="encabezado__acciones">
+                    <a class="boton boton--borde" href="./" target="_blank" rel="noopener">Ver catálogo</a>
+                    <button class="boton boton--borde" id="boton-salir" type="button">Salir</button>
+                </div>
+            </div>
+            <nav class="contenedor pestanas" role="tablist">
+                <button type="button" role="tab" data-pestana="productos" aria-selected="true">Productos</button>
+                <button type="button" role="tab" data-pestana="clientes" aria-selected="false">Clientes fijos</button>
+                <button type="button" role="tab" data-pestana="ajustes" aria-selected="false">Ajustes</button>
+            </nav>
+        </header>
+
+        <!-- Productos -->
+        <section class="contenedor pestana" id="pestana-productos">
+            <div class="barra-herramientas">
+                <label class="buscador">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+                    <input type="search" id="filtro-texto" placeholder="Buscar producto o marca" autocomplete="off">
+                </label>
+                <select id="filtro-canal" aria-label="Canal">
+                    <option value="">Minorista y mayorista</option>
+                    <option value="minorista">Minorista</option>
+                    <option value="mayorista">Mayorista</option>
+                </select>
+                <select id="filtro-venta" aria-label="Forma de venta">
+                    <option value="">Empaquetado y a granel</option>
+                    <option value="empaquetado">Empaquetado</option>
+                    <option value="granel">A granel</option>
+                </select>
+                <select id="filtro-categoria" aria-label="Categoría">
+                    <option value="">Todas las categorías</option>
+                </select>
+                <button class="boton boton--primario" id="boton-nuevo-producto" type="button">+ Nuevo producto</button>
+            </div>
+
+            <details class="herramientas-precios">
+                <summary>Cambiar precios de varios productos a la vez</summary>
+                <p class="ayuda">Se aplica a los <b id="cantidad-filtrados">0</b> productos que se ven en la lista (usá el buscador y los filtros para elegirlos).</p>
+                <div class="herramientas-precios__fila">
+                    <label class="campo">
+                        <span>Aumentar precios (%)</span>
+                        <input type="number" id="porcentaje-aumento" step="0.5" placeholder="Ej.: 8 (o -5 para bajar)">
+                    </label>
+                    <button class="boton boton--borde" id="boton-aumento" type="button">Aplicar a lista y fijo</button>
+                </div>
+                <div class="herramientas-precios__fila">
+                    <label class="campo">
+                        <span>Precio fijo = precio de lista menos (%)</span>
+                        <input type="number" id="porcentaje-fijo" step="0.5" min="0" max="90" placeholder="Ej.: 5">
+                    </label>
+                    <button class="boton boton--borde" id="boton-fijo" type="button">Recalcular precio fijo</button>
+                </div>
+            </details>
+
+            <div class="encabezado-lista" aria-hidden="true">
+                <span>Producto</span><span>Precio de lista</span><span>Precio fijo</span><span>Stock</span><span></span>
+            </div>
+            <div id="lista-productos" class="lista-productos"></div>
+            <p class="estado" id="productos-vacio" hidden>No hay productos con ese filtro.</p>
+        </section>
+
+        <!-- Clientes fijos -->
+        <section class="contenedor pestana" id="pestana-clientes" hidden>
+            <div class="tarjeta-panel">
+                <h2>Agregar cliente fijo</h2>
+                <p class="ayuda">Cada cliente fijo recibe un <b>link personal</b>. Cuando abre el catálogo con ese link ve sus precios de cliente fijo (queda recordado en su celular). Si lo das de baja, el link deja de funcionar.</p>
+                <form id="form-cliente" class="formulario formulario--fila">
+                    <label class="campo">
+                        <span>Nombre o comercio</span>
+                        <input type="text" id="cliente-nombre" required maxlength="60" placeholder="Ej.: Almacén El Sol">
+                    </label>
+                    <label class="campo">
+                        <span>WhatsApp (opcional)</span>
+                        <input type="tel" id="cliente-whatsapp" maxlength="20" placeholder="Ej.: 3885123456">
+                    </label>
+                    <button class="boton boton--primario" type="submit">Agregar y crear link</button>
+                </form>
+            </div>
+            <div id="lista-clientes" class="lista-clientes"></div>
+        </section>
+
+        <!-- Ajustes -->
+        <section class="contenedor pestana" id="pestana-ajustes" hidden>
+            <div class="tarjeta-panel">
+                <h2>Cambiar contraseña del panel</h2>
+                <form id="form-contrasena" class="formulario">
+                    <label class="campo">
+                        <span>Contraseña nueva (mínimo 10 caracteres)</span>
+                        <input type="password" id="nueva-contrasena" autocomplete="new-password" minlength="10" required>
+                    </label>
+                    <label class="campo">
+                        <span>Repetir contraseña nueva</span>
+                        <input type="password" id="nueva-repetir" autocomplete="new-password" minlength="10" required>
+                    </label>
+                    <button class="boton boton--primario" type="submit">Cambiar contraseña</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- Barra de cambios sin publicar -->
+        <div class="barra-publicar" id="barra-publicar" hidden>
+            <div class="contenedor barra-publicar__fila">
+                <span><b id="cantidad-cambios">0</b> cambios sin publicar</span>
+                <div class="barra-publicar__botones">
+                    <button class="boton boton--claro" id="boton-descartar" type="button">Descartar</button>
+                    <button class="boton boton--verde" id="boton-publicar" type="button">Publicar cambios</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Editar producto -->
+    <dialog class="dialogo" id="dialogo-producto">
+        <form id="form-producto" class="formulario" method="dialog">
+            <h2 id="dialogo-titulo">Editar producto</h2>
+            <div class="formulario__grilla">
+                <label class="campo campo--ancho">
+                    <span>Nombre del producto</span>
+                    <input type="text" name="producto" required maxlength="90">
+                </label>
+                <label class="campo">
+                    <span>Marca</span>
+                    <input type="text" name="marca" maxlength="40" list="lista-marcas">
+                </label>
+                <label class="campo">
+                    <span>Categoría</span>
+                    <select name="categoria" required></select>
+                </label>
+                <label class="campo">
+                    <span>Canal</span>
+                    <select name="canal">
+                        <option value="minorista">Minorista</option>
+                        <option value="mayorista">Mayorista</option>
+                    </select>
+                </label>
+                <label class="campo">
+                    <span>Forma de venta</span>
+                    <select name="venta">
+                        <option value="empaquetado">Empaquetado</option>
+                        <option value="granel">A granel</option>
+                    </select>
+                </label>
+                <label class="campo campo--ancho">
+                    <span>Presentación (separar con · o con comas)</span>
+                    <input type="text" name="presentacion" maxlength="90" placeholder="Ej.: Caja 6 kg · 3 bolsas x 2 kg">
+                </label>
+                <label class="campo">
+                    <span>El precio es</span>
+                    <select name="unidad">
+                        <option value="unidad">Por unidad</option>
+                        <option value="caja">Por caja</option>
+                        <option value="kg">Por kilo</option>
+                    </select>
+                </label>
+                <label class="campo" id="campo-kilos">
+                    <span>Kilos por caja</span>
+                    <input type="number" name="kilos_caja" min="0" step="0.1" placeholder="Vacío = al peso">
+                </label>
+                <label class="campo">
+                    <span>Precio de lista (cliente nuevo)</span>
+                    <input type="number" name="precio_nuevo" min="0" step="1" placeholder="Vacío = consultar">
+                </label>
+                <label class="campo">
+                    <span>Precio cliente fijo</span>
+                    <input type="number" name="precio_fijo" min="0" step="1" placeholder="Vacío = igual al de lista">
+                </label>
+                <label class="campo campo--ancho">
+                    <span>Foto (dirección de la imagen, opcional)</span>
+                    <input type="url" name="imagen" placeholder="https://…">
+                </label>
+                <label class="interruptor campo--ancho">
+                    <input type="checkbox" name="stock">
+                    <span>Hay stock</span>
+                </label>
+            </div>
+            <div class="dialogo__botones">
+                <button class="boton boton--peligro" type="button" id="boton-eliminar-producto">Eliminar</button>
+                <span class="espacio"></span>
+                <button class="boton boton--borde" type="button" id="boton-cancelar-producto">Cancelar</button>
+                <button class="boton boton--primario" type="submit">Listo</button>
+            </div>
+        </form>
+    </dialog>
+    <datalist id="lista-marcas"></datalist>
+
+    <div class="aviso-flotante" id="aviso-flotante" role="status" hidden></div>
+
+    <script src="config.js"></script>
+    <script src="comun.js"></script>
+    <script src="admin.js"></script>
+</body>
+</html>

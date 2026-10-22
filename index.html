@@ -3,75 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo - EnFrío Distribuidora</title>
-    
-<!-- Conexión a Google Fonts (Poppins) -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
-    
-    <!-- Conexión a Bootstrap CSS (CDN) -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    
-    <!-- Conexión a tus estilos personalizados -->
+    <title>Catálogo EnFrío Distribuidora</title>
+    <meta name="description" content="Catálogo de productos congelados de EnFrío Distribuidora: venta minorista y mayorista, empaquetado y a granel.">
+    <meta name="theme-color" content="#0b2a3c">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Barra de Navegación -->
-    <nav class="navbar navbar-expand-lg bg-body-tertiary shadow-sm" id="navbar">
-        <div class="container d-flex justify-content-between align-items-center">
-            <a class="navbar-brand" href="#">
-                <!-- Logos con los nombres nuevos sin espacios -->
-                <img src="img/logo-negro.png" alt="EnFrío Distribuidora" id="logo-principal" height="40">
+    <!-- Encabezado -->
+    <header class="encabezado">
+        <div class="contenedor encabezado__fila">
+            <a href="#" class="marca" aria-label="EnFrío Distribuidora, inicio">
+                <img src="img/logo-negro.png" alt="EnFrío Distribuidora" class="marca__logo" id="logo-principal">
             </a>
-            
-            <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="switch-modo-oscuro">
-                <label class="form-check-label" for="switch-modo-oscuro" id="texto-modo">Modo Oscuro</label>
+            <div class="encabezado__acciones">
+                <button class="boton-icono" id="boton-tema" type="button" aria-label="Cambiar a modo oscuro">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+                </button>
+                <button class="boton-pedido" id="boton-abrir-pedido" type="button">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 4h2l2.4 11.2a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.5L21 8H6.2"/><circle cx="10" cy="20.5" r="1.3"/><circle cx="17" cy="20.5" r="1.3"/></svg>
+                    <span class="boton-pedido__texto">Mi pedido</span>
+                    <span class="contador" id="contador-pedido" hidden>0</span>
+                </button>
             </div>
         </div>
-    </nav>
+    </header>
 
-    <!-- Contenedor Principal -->
-    <div class="container mt-5 mb-5 pb-5">
-        <div class="row mb-4">
-            <div class="col">
-                <h2 class="fw-bold" id="titulo-principal">Nuestro Catálogo</h2>
-                <!-- Buscador -->
-<div class="row mb-4">
-    <div class="col-md-8 mx-auto">
-        <input type="text" id="buscador" class="form-control form-control-lg shadow-sm border-0" placeholder="Buscar por nombre o categoría (ej. Pan, Merluza, Sin Gluten...)">
-    </div>
-</div>
-                <p class="text-muted" id="subtitulo-principal">Selecciona los productos que te interesan para consultar.</p>
+    <!-- Portada -->
+    <section class="portada">
+        <div class="contenedor">
+            <p class="portada__etiqueta">Catálogo <span id="texto-actualizado"></span></p>
+            <h1 class="portada__titulo">Productos congelados para tu casa y tu negocio</h1>
+            <p class="portada__bajada">Pescados y mariscos, pollo, veggie, papas, pastas, frutas, sin gluten y más. Elegí cómo comprás y armá tu pedido por WhatsApp.</p>
+
+            <div class="canales" role="tablist" aria-label="Tipo de compra">
+                <button class="canal" role="tab" data-canal="minorista" aria-selected="true" type="button">
+                    <span class="canal__icono">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 10.5 12 4l8 6.5V20a1 1 0 0 1-1 1h-4.5v-6h-5v6H5a1 1 0 0 1-1-1z"/></svg>
+                    </span>
+                    <span>
+                        <strong>Minorista</strong>
+                        <small>Para tu casa, por unidad</small>
+                    </span>
+                </button>
+                <button class="canal" role="tab" data-canal="mayorista" aria-selected="false" type="button">
+                    <span class="canal__icono">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9.5 12 4l9 5.5M5 10v10h14V10M9 20v-6h6v6M3 20h18"/></svg>
+                    </span>
+                    <span>
+                        <strong>Mayorista</strong>
+                        <small>Comercios y gastronomía, por caja</small>
+                    </span>
+                </button>
             </div>
         </div>
-        
-        <!-- Spinner de Carga -->
-        <div id="pantalla-carga" class="text-center my-5">
-            <div class="spinner-border text-primary" role="status" style="width: 3rem; height: 3rem;">
-                <span class="visually-hidden">Cargando...</span>
+    </section>
+
+    <!-- Barra de filtros -->
+    <div class="filtros" id="filtros">
+        <div class="contenedor">
+            <div class="filtros__fila">
+                <div class="segmentado" id="selector-venta" role="radiogroup" aria-label="Forma de venta">
+                    <button type="button" role="radio" data-venta="empaquetado" aria-checked="true">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7.5 12 3l8 4.5v9L12 21l-8-4.5zM4 7.5 12 12l8-4.5M12 12v9"/></svg>
+                        Empaquetado
+                    </button>
+                    <button type="button" role="radio" data-venta="granel" aria-checked="false">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12l-1 12H7zM9 8V6a3 3 0 0 1 6 0v2"/></svg>
+                        A granel
+                    </button>
+                </div>
+
+                <label class="buscador">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+                    <input type="search" id="buscador" placeholder="Buscar producto o marca" autocomplete="off">
+                </label>
             </div>
-            <h5 class="mt-3 text-muted">Cargando catálogo...</h5>
-        </div>
-
-        <!-- Cuadrícula de Productos -->
-        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="contenedor-productos">
-            <!-- Se inyecta con JS -->
+            <nav class="categorias" id="categorias" aria-label="Categorías"></nav>
         </div>
     </div>
 
-    <!-- Botón Flotante del Carrito -->
-    <div id="contenedor-carrito" class="position-fixed bottom-0 end-0 p-3" style="display: none; z-index: 1050;">
-        <button id="btn-enviar-whatsapp" class="btn btn-success btn-lg shadow rounded-pill px-4 d-flex align-items-center gap-2">
-            <span id="contador-carrito" class="badge bg-light text-success rounded-circle">0</span>
-            Enviar Consulta
-        </button>
-    </div>
+    <main class="contenedor principal">
+        <p class="aviso-precios" id="aviso-precios"></p>
 
-<!-- Script de Bootstrap (CDN) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    
-    <!-- Tu script -->
+        <div id="pantalla-carga" class="estado">
+            <div class="girador" aria-hidden="true"></div>
+            <p>Cargando catálogo…</p>
+        </div>
+
+        <div id="secciones"></div>
+
+        <p class="estado" id="sin-resultados" hidden>No encontramos productos con esa búsqueda.</p>
+    </main>
+
+    <footer class="pie">
+        <div class="contenedor pie__fila">
+            <img src="img/logo-blanco.png" alt="EnFrío Distribuidora" class="pie__logo">
+            <div class="pie__texto">
+                <p>Precios en pesos, sujetos a cambio sin previo aviso. Los totales del pedido son estimados y se confirman por WhatsApp.</p>
+                <div class="pie__acciones">
+                    <a class="enlace-whatsapp" id="enlace-whatsapp" target="_blank" rel="noopener">Escribinos por WhatsApp</a>
+                    <button class="enlace-imprimir" id="boton-imprimir" type="button">Descargar lista de precios</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Firma de Lambda Soluciones: negro, λ amarilla con brillo y grilla de puntos -->
+        <a class="firma-lambda" href="https://www.instagram.com/lambdasoluciones" target="_blank" rel="noopener noreferrer"
+           aria-label="Sitio realizado por Lambda Soluciones Digitales. Ver su Instagram">
+            <div class="contenedor firma-lambda__fila">
+                <div class="firma-lambda__marca">
+                    <span class="firma-lambda__lambda" aria-hidden="true">λ</span>
+                    <span>
+                        <span class="firma-lambda__etiqueta">Diseño y desarrollo</span>
+                        <span class="firma-lambda__nombre">Lambda <span>Soluciones Digitales</span></span>
+                    </span>
+                </div>
+                <span class="firma-lambda__instagram">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><path d="M17.5 6.5h.01"/></svg>
+                    @lambdasoluciones
+                </span>
+            </div>
+        </a>
+    </footer>
+
+    <!-- Barra flotante en celular -->
+    <button class="barra-pedido" id="barra-pedido" type="button" hidden>
+        <span><span id="barra-cantidad">0</span> productos</span>
+        <strong id="barra-total">$0</strong>
+        <span class="barra-pedido__ver">Ver pedido</span>
+    </button>
+
+    <!-- Panel del pedido -->
+    <div class="fondo-panel" id="fondo-panel" hidden></div>
+    <aside class="panel" id="panel-pedido" aria-labelledby="titulo-pedido" aria-hidden="true">
+        <div class="panel__cabecera">
+            <h2 id="titulo-pedido">Mi pedido</h2>
+            <button class="boton-icono" id="boton-cerrar-pedido" type="button" aria-label="Cerrar pedido">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+            </button>
+        </div>
+        <p class="panel__tipo" id="panel-tipo"></p>
+        <div class="panel__lista" id="lista-pedido"></div>
+        <div class="panel__pie">
+            <label class="campo">
+                <span>Nombre o comercio</span>
+                <input type="text" id="nombre-cliente" placeholder="Ej.: Juan / Almacén El Sol" autocomplete="name">
+            </label>
+            <div class="panel__total">
+                <span>Total estimado</span>
+                <strong id="total-pedido">$0</strong>
+            </div>
+            <button class="boton-enviar" id="boton-enviar" type="button">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11 11 0 0 0 3.6 17.1L2.5 21.5l4.5-1.2A11 11 0 1 0 20.5 3.5z"/><path d="M8.5 8.5c.3 2.6 3.4 5.7 6 6l1.3-1.3-2-1-1 .8c-1-.4-2.3-1.7-2.8-2.8l.8-1-1-2z"/></svg>
+                Enviar pedido por WhatsApp
+            </button>
+            <button class="boton-vaciar" id="boton-vaciar" type="button">Vaciar pedido</button>
+        </div>
+    </aside>
+
+    <!-- Lista para imprimir / guardar como PDF -->
+    <section class="impresion" id="impresion" aria-hidden="true"></section>
+
+    <script src="config.js"></script>
+    <script src="comun.js"></script>
     <script src="app.js"></script>
-    </body>
+</body>
 </html>
