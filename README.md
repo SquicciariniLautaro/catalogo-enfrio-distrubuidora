@@ -1,17 +1,17 @@
 # Catálogo EnFrío Distribuidora
 
 Catálogo web de productos congelados con panel de administración. **No usa base de datos ni
-servidor**: es un sitio estático publicado en GitHub Pages, y los productos y clientes fijos son
-archivos del propio repositorio que el panel guarda a través de GitHub.
+servidor**: es un sitio estático publicado en Vercel, y los productos y clientes fijos son archivos
+del propio repositorio que el panel guarda a través de GitHub.
 
 ```
 Cliente ── catálogo (index.html) ── lee ──> datos/productos.json, datos/clientes.json
 Negocio ── panel (admin.html) ── guarda con la API de GitHub ──> esos mismos archivos
-                                    └─ GitHub Pages republica el sitio en 1 o 2 minutos
+                                    └─ Vercel publica el cambio solo, en 1 o 2 minutos
 ```
 
-- El cliente elige **Minorista** o **Mayorista** y **Empaquetado** o **A granel**, arma el pedido
-  y lo manda por WhatsApp.
+- El cliente elige **Minorista** o **Mayorista** y **Empaquetado** o **A granel**, arma el pedido,
+  completa sus datos (entrega, pago, factura) y lo manda por WhatsApp.
 - Todos ven el **precio de lista** (cliente nuevo). Los **clientes fijos** los da de alta el negocio
   en el panel: cada uno recibe un **link personal** con el que ve sus precios de cliente fijo.
 
@@ -22,12 +22,26 @@ Negocio ── panel (admin.html) ── guarda con la API de GitHub ──> eso
 | `index.html`, `style.css`, `app.js` | El catálogo. |
 | `admin.html`, `admin.css`, `admin.js` | El panel de administración. |
 | `comun.js` | Lo que usan los dos: categorías, formato de precios y cifrado. |
-| `config.js` | Número de WhatsApp, repositorio de GitHub y dirección del sitio. |
+| `config.js` | Número de WhatsApp y repositorio de GitHub donde guarda el panel. |
+| `vercel.json` | Que los datos no queden guardados viejos en el navegador y que el panel no aparezca en Google. |
 | `datos/productos.json` | Productos y precios. Se edita desde el panel. |
 | `datos/clientes.json` | Clientes fijos (cifrados). Se edita desde el panel. |
 | `datos/acceso.json` | La llave de GitHub cifrada con la contraseña del panel. Lo crea el panel. |
 | `scripts/importar_excel.py` | Se usó para la carga inicial desde los Excel. **Volver a correrlo pisa lo cargado en el panel.** |
 | `img/` | Logos. |
+
+## Publicar en Vercel (una sola vez)
+
+1. Entrar a [vercel.com](https://vercel.com) → **Add New… → Project** → importar el repositorio
+   `catalogo-enfrio-distrubuidora`.
+2. **Framework Preset:** `Other`. Build Command y Output Directory vacíos (es un sitio estático).
+3. **Deploy.** Queda en `https://<nombre-del-proyecto>.vercel.app` (después se le puede poner un dominio
+   propio en Settings → Domains).
+4. Desde ahí, cada vez que el panel guarda un cambio en GitHub, Vercel lo publica solo.
+5. Apagar GitHub Pages para que no queden dos copias: en GitHub → Settings → Pages → Source: **None**.
+
+Los links de los clientes fijos se arman con la dirección desde donde se usa el panel: entrar siempre
+al panel por la dirección definitiva (la de Vercel o el dominio propio).
 
 ## Puesta en marcha del panel (una sola vez)
 
@@ -39,14 +53,14 @@ El panel necesita una **llave de GitHub** para poder guardar. La crea Lautaro de
 3. **Repository access** → **Only select repositories** → elegir `catalogo-enfrio-distrubuidora`.
 4. **Permissions** → **Repository permissions** → **Contents** → **Read and write**. Nada más.
 5. **Generate token** y copiar la llave (empieza con `github_pat_`). GitHub la muestra una sola vez.
-6. Abrir `https://squicciarinilautaro.github.io/catalogo-enfrio-distrubuidora/admin.html`
-   (con este código ya publicado), pegar la llave y elegir la contraseña del negocio.
-7. Pasarle al cliente la dirección del panel y la contraseña. La llave no se la tiene que saber nadie.
+6. Abrir `https://<la-dirección-de-vercel>/admin.html`, pegar la llave y elegir la contraseña del negocio.
+7. Pasarle al cliente la dirección del panel y la contraseña. La llave no se la tiene que saber nadie
+   (y no se pega en chats ni mensajes).
 
-La llave no vence. Si alguna vez hay que cambiarla (por ejemplo si se filtró, o si se borró en
-GitHub y el panel dice "La llave de GitHub dejó de funcionar"): crear una llave nueva igual a la
-anterior, borrar el archivo `datos/acceso.json` del repositorio y volver a entrar a `admin.html`,
-que pide de nuevo la llave y la contraseña. Los productos y los clientes fijos no se pierden.
+Si alguna vez hay que cambiar la llave (por ejemplo si se filtró, o si se borró en GitHub y el panel
+dice "La llave de GitHub dejó de funcionar"): crear una llave nueva igual a la anterior, borrar el
+archivo `datos/acceso.json` del repositorio y volver a entrar a `admin.html`, que pide de nuevo la
+llave y la contraseña. Los productos y los clientes fijos no se pierden.
 
 ### Seguridad
 - La llave queda guardada **cifrada** con la contraseña (`datos/acceso.json`): sin la contraseña no

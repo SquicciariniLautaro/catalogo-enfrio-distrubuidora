@@ -1,6 +1,6 @@
 // Panel de administración. No hay base de datos: los productos y los clientes fijos son
 // archivos del repositorio (datos/*.json) y el panel los guarda con la API de GitHub.
-// GitHub Pages vuelve a publicar el sitio solo, en uno o dos minutos.
+// Vercel vuelve a publicar el sitio solo con cada cambio, en uno o dos minutos.
 //
 // Con ?prueba en la dirección todo se guarda en este navegador (localStorage), para
 // probar el panel sin tocar el catálogo real.
@@ -517,8 +517,8 @@ window.addEventListener("beforeunload", (e) => {
 
 // ---------- Clientes fijos ----------
 function linkCliente(c) {
-    const sitio = MODO_PRUEBA ? new URL("./", location.href).href : CONFIG.sitio;
-    return `${sitio}?cliente=${c.codigo}`;
+    // El catálogo está en la misma carpeta que el panel, sea cual sea el dominio.
+    return `${new URL("./", location.href).href}?cliente=${c.codigo}`;
 }
 
 function soloNumeros(telefono) {

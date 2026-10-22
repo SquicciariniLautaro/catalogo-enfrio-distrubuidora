@@ -45,7 +45,7 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-button, input { font: inherit; color: inherit; }
+button, input, select, textarea { font: inherit; color: inherit; }
 button { cursor: pointer; }
 svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; flex-shrink: 0; }
 
@@ -364,6 +364,49 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .boton-enviar:hover { background: var(--verde-fuerte); }
 .boton-enviar:disabled { opacity: .5; cursor: not-allowed; }
 .boton-vaciar { border: 0; background: transparent; color: var(--texto-2); font-size: .82rem; text-decoration: underline; }
+.boton-enviar--azul { background: var(--noche); }
+.boton-enviar--azul:hover { background: var(--noche-2); }
+:root[data-tema="oscuro"] .boton-enviar--azul { background: var(--azul); color: #04202e; }
+
+/* Pasos del pedido: productos y datos */
+.pasos { display: flex; gap: 6px; margin: 0; padding: 0 16px 12px; list-style: none; border-bottom: 1px solid var(--borde); }
+.pasos li { flex: 1; padding: 6px 0 0; border-top: 3px solid var(--borde); font-size: .76rem; font-weight: 500; color: var(--texto-2); }
+.pasos li.activo { border-top-color: var(--azul); color: var(--texto); }
+.panel__paso { display: flex; flex-direction: column; flex: 1; min-height: 0; }
+.panel__paso[hidden] { display: none; }
+.panel__paso .panel__tipo { padding-top: 10px; border-bottom: 0; }
+.panel__formulario { display: grid; gap: 18px; align-content: start; padding-top: 12px; padding-bottom: 16px; }
+.boton-volver {
+    justify-self: start; display: inline-flex; align-items: center; gap: 6px; padding: 0;
+    border: 0; background: none; color: var(--azul-fuerte); font-size: .84rem; font-weight: 500;
+}
+.boton-volver svg { width: 18px; height: 18px; }
+.grupo { display: grid; gap: 10px; margin: 0; padding: 0; border: 0; min-width: 0; }
+.grupo legend { padding: 0; margin-bottom: 10px; font-size: .95rem; font-weight: 600; color: var(--texto); }
+.campo span em { font-style: normal; color: var(--rojo); }
+.campo small { font-size: .74rem; }
+.campo select, .campo textarea {
+    width: 100%; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--borde);
+    background: var(--fondo); color: var(--texto); outline: 0; font-size: .9rem;
+}
+.campo select { height: 42px; padding-top: 0; padding-bottom: 0; }
+.campo textarea { resize: vertical; min-height: 76px; }
+.campo input { color: var(--texto); font-size: .9rem; }
+.campo select:focus, .campo textarea:focus { border-color: var(--azul); }
+.campo--error input, .campo--error select { border-color: var(--rojo); background: color-mix(in srgb, var(--rojo) 6%, var(--fondo)); }
+.campo__error { color: var(--rojo); font-size: .76rem; }
+.solo-envio { display: grid; gap: 10px; }
+.solo-envio[hidden] { display: none; }
+.opciones { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.opcion {
+    display: flex; gap: 8px; align-items: flex-start; padding: 10px; border-radius: 12px; cursor: pointer;
+    border: 1.5px solid var(--borde); background: var(--superficie); font-size: .84rem;
+}
+.opcion input { margin: 3px 0 0; accent-color: var(--azul); }
+.opcion b { display: block; font-weight: 600; color: var(--texto); }
+.opcion small { display: block; color: var(--texto-2); font-size: .74rem; line-height: 1.3; }
+.opcion:has(input:checked) { border-color: var(--azul); background: var(--azul-suave); }
+.panel__aclaracion { margin: 0; text-align: center; font-size: .74rem; color: var(--texto-2); }
 
 /* ---------- Lista para imprimir ---------- */
 .impresion { display: none; }
