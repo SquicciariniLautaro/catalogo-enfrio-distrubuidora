@@ -301,8 +301,12 @@ function dibujarPedido() {
     $("#barra-cantidad").textContent = cantidad;
     $("#barra-total").textContent = pesos(total);
     $("#total-pedido").textContent = pesos(total);
+    $("#total-datos").textContent = pesos(total);
+    $("#resumen-datos").textContent = `${cantidad} ${cantidad === 1 ? "producto" : "productos"} · total estimado`;
+    $("#boton-continuar").disabled = cantidad === 0;
     $("#boton-enviar").disabled = cantidad === 0;
     $("#boton-vaciar").hidden = cantidad === 0;
+    if (!cantidad) mostrarPaso(1);
     $("#panel-tipo").textContent = estado.cliente === "fijo" ? "Con tus precios de cliente fijo" : "Con precios de lista";
 
     const lista = $("#lista-pedido");
@@ -327,7 +331,17 @@ function dibujarPedido() {
     }).join("");
 }
 
+function mostrarPaso(numero) {
+    $("#paso-productos").hidden = numero !== 1;
+    $("#form-datos").hidden = numero !== 2;
+    $("#paso-1").classList.toggle("activo", numero >= 1);
+    $("#paso-2").classList.toggle("activo", numero === 2);
+    $("#titulo-pedido").textContent = numero === 1 ? "Mi pedido" : "Tus datos";
+    elPanel.querySelectorAll(".panel__lista").forEach((el) => { el.scrollTop = 0; });
+}
+
 function abrirPedido() {
+    mostrarPaso(1);
     dibujarPedido();
     elPanel.classList.add("abierto");
     elPanel.setAttribute("aria-hidden", "false");
@@ -342,17 +356,106 @@ function cerrarPedido() {
     document.body.style.overflow = "";
 }
 
+// ---------- Datos del cliente ----------
+const formDatos = $("#form-datos");
+const CAMPOS_DATOS = ["nombre", "telefono", "comercio", "entrega", "direccion", "localidad", "referencias", "horario", "pago", "factura", "cuit", "notas"];
+
+function leerDatos() {
+    const f = formDatos.elements;
+    return Object.fromEntries(CAMPOS_DATOS.map((c) => [c, (f[c].value || "").trim()]));
+}
+
+function cargarDatos() {
+    const guardados = leerGuardado("datos", {});
+    if (!guardados.nombre && estado.nombreCliente) guardados.nombre = estado.nombreCliente;
+    const f = formDatos.elements;
+    CAMPOS_DATOS.forEach((c) => {
+        if (guardados[c] === undefined) return;
+        if (c === "entrega") f.entrega.value = guardados.entrega || "envio";
+        else f[c].value = guardados[c];
+    });
+    actualizarCamposDatos();
+}
+
+function actualizarCamposDatos() {
+    const f = formDatos.elements;
+    const envio = f.entrega.value === "envio";
+    formDatos.querySelector(".solo-envio").hidden = !envio;
+    ["direccion", "localidad"].forEach((c) => { f[c].required = envio; });
+    const facturaA = f.factura.value.startsWith("Factura A");
+    $("#campo-cuit").hidden = !facturaA;
+    f.cuit.required = facturaA;
+}
+
+function marcarError(campo, mensaje) {
+    const contenedor = campo.closest(".campo");
+    contenedor.classList.add("campo--error");
+    let aviso = contenedor.querySelector(".campo__error");
+    if (!aviso) {
+        aviso = document.createElement("small");
+        aviso.className = "campo__error";
+        contenedor.appendChild(aviso);
+    }
+    aviso.textContent = mensaje;
+}
+
+function limpiarError(campo) {
+    const contenedor = campo.closest(".campo");
+    if (!contenedor) return;
+    contenedor.classList.remove("campo--error");
+    contenedor.querySelector(".campo__error")?.remove();
+}
+
+function validarDatos() {
+    const f = formDatos.elements;
+    const errores = [];
+    const revisar = (nombre, valido, mensaje) => {
+        const campo = f[nombre];
+        limpiarError(campo);
+        if (!valido) {
+            marcarError(campo, mensaje);
+            errores.push(campo);
+        }
+    };
+    const d = leerDatos();
+    revisar("nombre", d.nombre.length >= 3, "Escribí tu nombre y apellido.");
+    revisar("telefono", d.telefono.replace(/\D/g, "").length >= 8, "Escribí un teléfono con código de área.");
+    if (d.entrega === "envio") {
+        revisar("direccion", d.direccion.length >= 4, "Escribí la dirección de entrega.");
+        revisar("localidad", d.localidad.length >= 2, "Escribí la localidad o el barrio.");
+    }
+    revisar("pago", Boolean(d.pago), "Elegí cómo vas a pagar.");
+    if (d.factura.startsWith("Factura A")) revisar("cuit", d.cuit.replace(/\D/g, "").length === 11, "El CUIT tiene 11 números.");
+    if (errores.length) {
+        errores[0].focus();
+        errores[0].scrollIntoView({ block: "center", behavior: "smooth" });
+    }
+    return errores.length === 0;
+}
+
 function enviarPedido() {
     const lineas = lineasPedido();
-    if (!lineas.length) return;
-    const nombre = $("#nombre-cliente").value.trim();
-    guardar("nombre", nombre);
+    if (!lineas.length || !validarDatos()) return;
+    const d = leerDatos();
+    guardar("datos", { ...d, notas: "" });
 
     let mensaje = "¡Hola EnFrío! Quiero hacer este pedido:\n";
-    if (nombre) mensaje += `\n*Nombre:* ${nombre}`;
+    mensaje += `\n*Datos*\n• Nombre: ${d.nombre}\n• Teléfono: ${d.telefono}\n`;
+    if (d.comercio) mensaje += `• Comercio: ${d.comercio}\n`;
     mensaje += estado.cliente === "fijo"
-        ? `\n*Cliente fijo:* ${estado.nombreCliente}\n`
-        : `\n*Precios:* de lista (cliente nuevo)\n`;
+        ? `• Cliente fijo: ${estado.nombreCliente}\n`
+        : `• Precios: de lista (cliente nuevo)\n`;
+
+    mensaje += `\n*Entrega*\n`;
+    if (d.entrega === "envio") {
+        mensaje += `• Envío a domicilio: ${d.direccion}, ${d.localidad}\n`;
+        if (d.referencias) mensaje += `• Referencias: ${d.referencias}\n`;
+    } else {
+        mensaje += `• Retiro en el local\n`;
+    }
+    if (d.horario) mensaje += `• Día y horario: ${d.horario}\n`;
+
+    mensaje += `\n*Pago*\n• ${d.pago}\n• ${d.factura}${d.factura.startsWith("Factura A") ? ` · CUIT ${d.cuit}` : ""}\n`;
 
     const grupos = {};
     lineas.forEach((l) => {
@@ -367,7 +470,9 @@ function enviarPedido() {
             mensaje += `• ${textoCantidad(p, cantidad)} — ${p.nombre}${detalle ? ` (${detalle})` : ""} — ${porPedido ? pesos(porPedido * cantidad) : "a consultar"}\n`;
         });
     });
-    mensaje += `\n*Total estimado:* ${pesos(totalPedido(lineas))}\n_Precios del catálogo web, a confirmar._`;
+    mensaje += `\n*Total estimado:* ${pesos(totalPedido(lineas))}\n`;
+    if (d.notas) mensaje += `\n*Notas:* ${d.notas}\n`;
+    mensaje += `\n_Precios del catálogo web, a confirmar._`;
 
     window.open(`https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(mensaje)}`, "_blank", "noopener");
 }
@@ -471,7 +576,22 @@ $("#barra-pedido").addEventListener("click", abrirPedido);
 $("#boton-cerrar-pedido").addEventListener("click", cerrarPedido);
 elFondo.addEventListener("click", cerrarPedido);
 document.addEventListener("keydown", (e) => { if (e.key === "Escape") cerrarPedido(); });
-$("#boton-enviar").addEventListener("click", enviarPedido);
+$("#boton-continuar").addEventListener("click", () => {
+    if (!lineasPedido().length) return;
+    cargarDatos();
+    mostrarPaso(2);
+    setTimeout(() => formDatos.elements.nombre.focus({ preventScroll: true }), 300);
+});
+$("#boton-volver").addEventListener("click", () => mostrarPaso(1));
+formDatos.addEventListener("submit", (e) => {
+    e.preventDefault();
+    enviarPedido();
+});
+formDatos.addEventListener("change", actualizarCamposDatos);
+formDatos.addEventListener("input", (e) => {
+    limpiarError(e.target);
+    guardar("datos", leerDatos());
+});
 $("#boton-vaciar").addEventListener("click", () => {
     pedido = {};
     guardar("pedido", pedido);
@@ -494,7 +614,6 @@ window.addEventListener("beforeprint", prepararImpresion);
 // ---------- Inicio ----------
 async function iniciar() {
     aplicarTema(leerGuardado("tema", window.matchMedia("(prefers-color-scheme: dark)").matches ? "oscuro" : "claro"));
-    $("#nombre-cliente").value = leerGuardado("nombre", "");
     $("#enlace-whatsapp").href = `https://wa.me/${CONFIG.whatsapp}`;
 
     try {

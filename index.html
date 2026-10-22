@@ -147,23 +147,126 @@
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
             </button>
         </div>
-        <p class="panel__tipo" id="panel-tipo"></p>
-        <div class="panel__lista" id="lista-pedido"></div>
-        <div class="panel__pie">
-            <label class="campo">
-                <span>Nombre o comercio</span>
-                <input type="text" id="nombre-cliente" placeholder="Ej.: Juan / Almacén El Sol" autocomplete="name">
-            </label>
-            <div class="panel__total">
-                <span>Total estimado</span>
-                <strong id="total-pedido">$0</strong>
+        <ol class="pasos" aria-label="Pasos del pedido">
+            <li id="paso-1" class="activo">1. Productos</li>
+            <li id="paso-2">2. Tus datos</li>
+        </ol>
+
+        <!-- Paso 1: productos -->
+        <div class="panel__paso" id="paso-productos">
+            <p class="panel__tipo" id="panel-tipo"></p>
+            <div class="panel__lista" id="lista-pedido"></div>
+            <div class="panel__pie">
+                <div class="panel__total">
+                    <span>Total estimado</span>
+                    <strong id="total-pedido">$0</strong>
+                </div>
+                <button class="boton-enviar boton-enviar--azul" id="boton-continuar" type="button">
+                    Continuar con mis datos
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                </button>
+                <button class="boton-vaciar" id="boton-vaciar" type="button">Vaciar pedido</button>
             </div>
-            <button class="boton-enviar" id="boton-enviar" type="button">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11 11 0 0 0 3.6 17.1L2.5 21.5l4.5-1.2A11 11 0 1 0 20.5 3.5z"/><path d="M8.5 8.5c.3 2.6 3.4 5.7 6 6l1.3-1.3-2-1-1 .8c-1-.4-2.3-1.7-2.8-2.8l.8-1-1-2z"/></svg>
-                Enviar pedido por WhatsApp
-            </button>
-            <button class="boton-vaciar" id="boton-vaciar" type="button">Vaciar pedido</button>
         </div>
+
+        <!-- Paso 2: datos para el pedido -->
+        <form class="panel__paso" id="form-datos" novalidate hidden>
+            <div class="panel__lista panel__formulario">
+                <button type="button" class="boton-volver" id="boton-volver">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+                    Volver al pedido
+                </button>
+
+                <fieldset class="grupo">
+                    <legend>Tus datos</legend>
+                    <label class="campo">
+                        <span>Nombre y apellido <em>*</em></span>
+                        <input type="text" name="nombre" autocomplete="name" maxlength="60" required>
+                    </label>
+                    <label class="campo">
+                        <span>WhatsApp o teléfono <em>*</em></span>
+                        <input type="tel" name="telefono" autocomplete="tel" inputmode="tel" maxlength="20" placeholder="Ej.: 388 512-3456" required>
+                    </label>
+                    <label class="campo">
+                        <span>Comercio o razón social <small>(si comprás para un negocio)</small></span>
+                        <input type="text" name="comercio" autocomplete="organization" maxlength="60">
+                    </label>
+                </fieldset>
+
+                <fieldset class="grupo">
+                    <legend>Entrega</legend>
+                    <div class="opciones" role="radiogroup">
+                        <label class="opcion">
+                            <input type="radio" name="entrega" value="envio" checked>
+                            <span><b>Envío a domicilio</b><small>Coordinamos el día por WhatsApp</small></span>
+                        </label>
+                        <label class="opcion">
+                            <input type="radio" name="entrega" value="retiro">
+                            <span><b>Retiro en el local</b><small>Te avisamos cuando está listo</small></span>
+                        </label>
+                    </div>
+                    <div class="solo-envio">
+                        <label class="campo">
+                            <span>Dirección <em>*</em></span>
+                            <input type="text" name="direccion" autocomplete="street-address" maxlength="80" placeholder="Calle y número, piso o depto." required>
+                        </label>
+                        <label class="campo">
+                            <span>Localidad o barrio <em>*</em></span>
+                            <input type="text" name="localidad" autocomplete="address-level2" maxlength="60" required>
+                        </label>
+                        <label class="campo">
+                            <span>Referencias <small>(opcional)</small></span>
+                            <input type="text" name="referencias" maxlength="100" placeholder="Entre calles, color de la casa, timbre…">
+                        </label>
+                    </div>
+                    <label class="campo">
+                        <span>Día y horario que te queda bien <small>(opcional)</small></span>
+                        <input type="text" name="horario" maxlength="60" placeholder="Ej.: martes o jueves por la tarde">
+                    </label>
+                </fieldset>
+
+                <fieldset class="grupo">
+                    <legend>Pago</legend>
+                    <label class="campo">
+                        <span>Forma de pago <em>*</em></span>
+                        <select name="pago" required>
+                            <option value="">Elegí una opción</option>
+                            <option>Efectivo</option>
+                            <option>Transferencia</option>
+                            <option>Mercado Pago</option>
+                        </select>
+                    </label>
+                    <label class="campo">
+                        <span>Factura</span>
+                        <select name="factura">
+                            <option>No necesito factura</option>
+                            <option>Factura B (consumidor final)</option>
+                            <option>Factura A (responsable inscripto)</option>
+                        </select>
+                    </label>
+                    <label class="campo" id="campo-cuit" hidden>
+                        <span>CUIT <em>*</em></span>
+                        <input type="text" name="cuit" inputmode="numeric" maxlength="13" placeholder="Ej.: 20-12345678-9">
+                    </label>
+                </fieldset>
+
+                <label class="campo">
+                    <span>Notas para el pedido <small>(opcional)</small></span>
+                    <textarea name="notas" rows="3" maxlength="300" placeholder="Algo que tengamos que saber: reemplazos, cortes, etc."></textarea>
+                </label>
+            </div>
+            <div class="panel__pie">
+                <div class="panel__total">
+                    <span id="resumen-datos">Total estimado</span>
+                    <strong id="total-datos">$0</strong>
+                </div>
+                <button class="boton-enviar" id="boton-enviar" type="submit">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.5 3.5A11 11 0 0 0 3.6 17.1L2.5 21.5l4.5-1.2A11 11 0 1 0 20.5 3.5z"/><path d="M8.5 8.5c.3 2.6 3.4 5.7 6 6l1.3-1.3-2-1-1 .8c-1-.4-2.3-1.7-2.8-2.8l.8-1-1-2z"/></svg>
+                    Enviar pedido por WhatsApp
+                </button>
+                <p class="panel__aclaracion">Se abre WhatsApp con tu pedido listo. Te confirmamos precios, stock y entrega al responderte.</p>
+            </div>
+        </form>
     </aside>
 
     <!-- Lista para imprimir / guardar como PDF -->

@@ -6,7 +6,4 @@ window.CONFIG = {
     // Repositorio de GitHub donde el panel guarda los cambios (usuario/repositorio y rama).
     repositorio: "SquicciariniLautaro/catalogo-enfrio-distrubuidora",
     rama: "main",
-
-    // Dirección pública del catálogo, para armar los links de los clientes fijos.
-    sitio: "https://squicciarinilautaro.github.io/catalogo-enfrio-distrubuidora/",
 };
