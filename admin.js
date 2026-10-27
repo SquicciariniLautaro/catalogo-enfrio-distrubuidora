@@ -451,7 +451,12 @@ function abrirDialogo(producto) {
 // ---------- Fotos (Cloudinary) ----------
 // Se suben directo desde el navegador con un perfil "sin firmar": no hace falta ninguna
 // clave secreta. La dirección de la foto queda en el campo oculto "imagen" del producto.
-const MAXIMO_FOTO = 5 * 1024 * 1024;
+// Las fotos grandes (de celular o de cámara) se achican en el navegador antes de subirlas:
+// así cualquier foto entra en el límite de Cloudinary, sube rápido y no ocupa espacio de más.
+const MAXIMO_ORIGINAL = 50 * 1024 * 1024;
+const LADO_MAXIMO = 2000;            // px del lado más largo: sobra para el catálogo
+const SUBIR_SIN_TOCAR = 2 * 1024 * 1024;
+const AYUDA_FOTO = "Cualquier foto JPG, PNG o WEBP (también de celular, aunque pese mucho): el panel la achica sola. Mejor con fondo claro y el producto centrado.";
 let subiendoFoto = false;
 
 function dibujarFoto(estado) {
@@ -463,15 +468,64 @@ function dibujarFoto(estado) {
     vista.innerHTML = url ? `<img src="${escapar(url)}" alt="">` : iconoCategoria(categoria);
     $("#foto-texto-boton").textContent = subiendoFoto ? "Subiendo…" : url ? "Cambiar foto" : "Subir foto";
     $("#foto-quitar").hidden = !formProducto.elements.imagen.value || subiendoFoto;
-    $("#foto-estado").textContent = estado || "JPG, PNG o WEBP, hasta 5 MB. Mejor con fondo claro y el producto centrado.";
+    $("#foto-estado").textContent = estado || AYUDA_FOTO;
     $("#foto-estado").classList.toggle("ayuda--error", Boolean(estado) && !subiendoFoto && estado.startsWith("No"));
+}
+
+const megas = (bytes) => `${(bytes / 1024 / 1024).toFixed(1).replace(".", ",")} MB`;
+
+function lienzoABlob(lienzo, tipo, calidad) {
+    return new Promise((resolver) => lienzo.toBlob(resolver, tipo, calidad));
+}
+
+// Devuelve la foto lista para subir: la original si ya es liviana, o una copia achicada.
+async function prepararFoto(archivo) {
+    if (archivo.size > MAXIMO_ORIGINAL) throw new ErrorGuardado(`No se pudo: la foto pesa ${megas(archivo.size)} (máximo 50 MB).`);
+    if (archivo.type && !archivo.type.startsWith("image/")) throw new ErrorGuardado("No se pudo: el archivo no es una foto.");
+
+    let imagen;
+    try {
+        imagen = await createImageBitmap(archivo); // respeta si la foto se sacó con el celular girado
+    } catch {
+        throw new ErrorGuardado("No se pudo leer la foto. Si es de iPhone (HEIC), pasala a JPG o subila desde el celular.");
+    }
+    const { width: ancho, height: alto } = imagen;
+    const yaSirve = /^image\/(jpeg|webp)$/.test(archivo.type) && archivo.size <= SUBIR_SIN_TOCAR && Math.max(ancho, alto) <= LADO_MAXIMO;
+    if (yaSirve) {
+        imagen.close();
+        return archivo;
+    }
+
+    const escala = Math.min(1, LADO_MAXIMO / Math.max(ancho, alto));
+    const lienzo = document.createElement("canvas");
+    lienzo.width = Math.round(ancho * escala);
+    lienzo.height = Math.round(alto * escala);
+    const ctx = lienzo.getContext("2d");
+    ctx.imageSmoothingQuality = "high";
+    ctx.drawImage(imagen, 0, 0, lienzo.width, lienzo.height);
+    imagen.close();
+
+    // WEBP mantiene la transparencia de los PNG y pesa menos; si el navegador no lo sabe
+    // generar, va JPG con fondo blanco.
+    let blob = await lienzoABlob(lienzo, "image/webp", 0.88);
+    if (!blob || blob.type !== "image/webp") {
+        const blanco = document.createElement("canvas");
+        blanco.width = lienzo.width;
+        blanco.height = lienzo.height;
+        const c = blanco.getContext("2d");
+        c.fillStyle = "#fff";
+        c.fillRect(0, 0, blanco.width, blanco.height);
+        c.drawImage(lienzo, 0, 0);
+        blob = await lienzoABlob(blanco, "image/jpeg", 0.88);
+    }
+    if (!blob) throw new ErrorGuardado("No se pudo preparar la foto. Probá con otra.");
+    const extension = blob.type === "image/webp" ? "webp" : "jpg";
+    return new File([blob], (archivo.name || "foto").replace(/\.[^.]+$/, "") + "." + extension, { type: blob.type });
 }
 
 async function subirFoto(archivo) {
     const { nube, perfil } = CONFIG.cloudinary || {};
     if (!nube || !perfil) throw new ErrorGuardado("No se configuró Cloudinary en config.js.");
-    if (!/^image\/(jpeg|png|webp)$/.test(archivo.type)) throw new ErrorGuardado("No se pudo: la foto tiene que ser JPG, PNG o WEBP.");
-    if (archivo.size > MAXIMO_FOTO) throw new ErrorGuardado("No se pudo: la foto pesa más de 5 MB.");
 
     const datos = new FormData();
     datos.append("file", archivo);
@@ -494,9 +548,11 @@ $("#foto-archivo").addEventListener("change", async (e) => {
     const archivo = e.target.files[0];
     if (!archivo || subiendoFoto) return;
     subiendoFoto = true;
-    dibujarFoto("Subiendo la foto…");
+    dibujarFoto(archivo.size > SUBIR_SIN_TOCAR ? `Achicando la foto (${megas(archivo.size)})…` : "Preparando la foto…");
     try {
-        formProducto.elements.imagen.value = await subirFoto(archivo);
+        const lista = await prepararFoto(archivo);
+        dibujarFoto(lista === archivo ? "Subiendo la foto…" : `Subiendo la foto (achicada a ${megas(lista.size)})…`);
+        formProducto.elements.imagen.value = await subirFoto(lista);
         subiendoFoto = false;
         dibujarFoto('Foto subida. Tocá "Listo" y después "Publicar cambios".');
     } catch (error) {
