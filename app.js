@@ -616,6 +616,7 @@ window.addEventListener("beforeprint", prepararImpresion);
 async function iniciar() {
     aplicarTema(leerGuardado("tema", window.matchMedia("(prefers-color-scheme: dark)").matches ? "oscuro" : "claro"));
     $("#enlace-whatsapp").href = `https://wa.me/${CONFIG.whatsapp}`;
+    $("#anio-actual").textContent = new Date().getFullYear();
 
     try {
         const [respuesta] = await Promise.all([

@@ -272,6 +272,17 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .pie__texto { flex: 1 1 300px; }
 .pie__texto p { margin: 0 0 12px; }
 .pie__acciones { display: flex; gap: 12px; flex-wrap: wrap; }
+.pie > .pie__fila { padding-bottom: 24px; }
+.pie > .pie__legal {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    padding-top: 14px; padding-bottom: 18px; border-top: 1px solid rgba(255, 255, 255, .08);
+    font-size: .76rem; color: rgba(198, 222, 235, .6);
+}
+.pie__legal p { margin: 0; }
+/* Acceso al panel: discreto, como en los otros proyectos */
+.pie__candado { display: grid; place-items: center; padding: 4px; border-radius: 6px; color: rgba(198, 222, 235, .3); transition: color .2s; }
+.pie__candado:hover, .pie__candado:focus-visible { color: #c6deeb; }
+.pie__candado svg { width: 15px; height: 15px; }
 .enlace-whatsapp, .enlace-imprimir {
     display: inline-flex; align-items: center; height: 38px; padding: 0 14px; border-radius: 10px;
     font-weight: 500; text-decoration: none; font-size: .86rem;
