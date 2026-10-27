@@ -22,7 +22,7 @@ Negocio ── panel (admin.html) ── guarda con la API de GitHub ──> eso
 | `index.html`, `style.css`, `app.js` | El catálogo. |
 | `admin.html`, `admin.css`, `admin.js` | El panel de administración. |
 | `comun.js` | Lo que usan los dos: categorías, formato de precios y cifrado. |
-| `config.js` | Número de WhatsApp y repositorio de GitHub donde guarda el panel. |
+| `config.js` | Número de WhatsApp, repositorio de GitHub donde guarda el panel y cuenta de Cloudinary para las fotos. |
 | `vercel.json` | Que los datos no queden guardados viejos en el navegador y que el panel no aparezca en Google. |
 | `datos/productos.json` | Productos y precios. Se edita desde el panel. |
 | `datos/clientes.json` | Clientes fijos (cifrados). Se edita desde el panel. |
@@ -75,6 +75,9 @@ llave y la contraseña. Los productos y los clientes fijos no se pierden.
   agregar o eliminar productos; subir o bajar un % los precios de los productos filtrados; recalcular
   el precio fijo como "lista menos X%". Los cambios se acumulan y se publican todos juntos con
   **Publicar cambios**.
+- **Fotos:** en la ventana de cada producto, **Subir foto** la sube a Cloudinary (cuenta `ikzhq00e`,
+  perfil de subida sin firmar `enfrio-catalogo`, carpeta `enfrio`). En el catálogo se muestran achicadas y
+  en el formato más liviano. Si el perfil se borra o se renombra en Cloudinary, hay que actualizar `config.js`.
 - **Clientes fijos:** agregar (nombre y WhatsApp), copiar o mandar por WhatsApp su link personal,
   dar de baja (el link deja de funcionar).
 - **Ajustes:** cambiar la contraseña.

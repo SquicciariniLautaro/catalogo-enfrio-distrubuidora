@@ -207,7 +207,9 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
     background: var(--tinte-suave);
 }
 .tarjeta__visual svg { width: 48px; height: 48px; color: var(--tinte); stroke-width: 1.4; }
-.tarjeta__visual img { width: 100%; height: 100%; object-fit: cover; }
+.tarjeta__visual img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+/* Con foto, el recuadro es más alto y la foto no se sale de él */
+.tarjeta__visual--foto { height: auto; aspect-ratio: 4 / 3; overflow: hidden; background: #fff; }
 .tarjeta__marca {
     position: absolute; left: 12px; bottom: 10px; padding: 3px 10px; border-radius: 999px;
     background: var(--superficie); color: var(--texto); font-size: .72rem; font-weight: 600;
@@ -430,6 +432,7 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
     .buscador { flex-basis: 100%; height: 42px; order: -1; }
     .grilla { grid-template-columns: 1fr 1fr; gap: 10px; }
     .tarjeta__visual { height: 84px; }
+    .tarjeta__visual--foto { height: auto; }
     .tarjeta__visual svg { width: 38px; height: 38px; }
     .tarjeta__cuerpo { padding: 10px; gap: 6px; }
     .tarjeta__nombre { font-size: .86rem; }

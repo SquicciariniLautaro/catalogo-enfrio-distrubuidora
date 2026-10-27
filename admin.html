@@ -230,10 +230,22 @@
                     <span>Precio cliente fijo</span>
                     <input type="number" name="precio_fijo" min="0" step="1" placeholder="Vacío = igual al de lista">
                 </label>
-                <label class="campo campo--ancho">
-                    <span>Foto (dirección de la imagen, opcional)</span>
-                    <input type="url" name="imagen" placeholder="https://…">
-                </label>
+                <div class="campo campo--ancho foto">
+                    <span>Foto del producto</span>
+                    <div class="foto__fila">
+                        <div class="foto__vista" id="foto-vista"></div>
+                        <div class="foto__acciones">
+                            <label class="boton boton--borde foto__subir">
+                                <input type="file" id="foto-archivo" accept="image/jpeg,image/png,image/webp" hidden>
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4M7 9l5-5 5 5M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
+                                <span id="foto-texto-boton">Subir foto</span>
+                            </label>
+                            <button class="boton boton--peligro-suave" type="button" id="foto-quitar">Quitar foto</button>
+                            <p class="ayuda" id="foto-estado">JPG, PNG o WEBP, hasta 5 MB. Mejor con fondo claro y el producto centrado.</p>
+                        </div>
+                    </div>
+                    <input type="hidden" name="imagen">
+                </div>
                 <label class="interruptor campo--ancho">
                     <input type="checkbox" name="stock">
                     <span>Hay stock</span>
