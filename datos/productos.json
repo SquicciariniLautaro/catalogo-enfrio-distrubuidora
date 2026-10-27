@@ -2,6 +2,36 @@
  "actualizado": "Octubre 2026",
  "productos": [
   {
+   "id": "may-emp-milanesa-merluza-400gr",
+   "canal": "mayorista",
+   "venta": "empaquetado",
+   "categoria": "Pescados y mariscos",
+   "marca": "ARTICO",
+   "producto": "MILANESA MERLUZA - 400GR",
+   "presentacion": "CAJA X 18 UND",
+   "unidad": "unidad",
+   "kilos_caja": null,
+   "precio_nuevo": null,
+   "precio_fijo": null,
+   "stock": true,
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793138858/gp2tmozyjdbozsuhqj4q.jpg"
+  },
+  {
+   "id": "may-emp-filet-merluza-400gr",
+   "canal": "mayorista",
+   "venta": "empaquetado",
+   "categoria": "Pescados y mariscos",
+   "marca": "ARTICO",
+   "producto": "FILET MERLUZA - 400GR",
+   "presentacion": "CAJA X 20UND",
+   "unidad": "unidad",
+   "kilos_caja": null,
+   "precio_nuevo": null,
+   "precio_fijo": null,
+   "stock": true,
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793138761/cusblwd9pd77vpjoxaja.jpg"
+  },
+  {
    "id": "min-emp-filet-de-merluza",
    "canal": "minorista",
    "venta": "empaquetado",
