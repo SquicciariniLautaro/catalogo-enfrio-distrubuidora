@@ -76,8 +76,9 @@ llave y la contraseña. Los productos y los clientes fijos no se pierden.
   el precio fijo como "lista menos X%". Los cambios se acumulan y se publican todos juntos con
   **Publicar cambios**.
 - **Fotos:** en la ventana de cada producto, **Subir foto** la sube a Cloudinary (cuenta `ikzhq00e`,
-  perfil de subida sin firmar `enfrio-catalogo`, carpeta `enfrio`). En el catálogo se muestran achicadas y
-  en el formato más liviano. Si el perfil se borra o se renombra en Cloudinary, hay que actualizar `config.js`.
+  perfil de subida sin firmar `enfrio-catalogo`, carpeta `enfrio`). Antes de subirla, el panel achica la
+  foto a 2000 px y la pasa a WEBP (una foto de 15 MB queda en ~1 MB), así entran fotos de celular o de
+  cámara de hasta 50 MB. En el catálogo se muestran achicadas otra vez y en el formato más liviano. Si el perfil se borra o se renombra en Cloudinary, hay que actualizar `config.js`.
 - **Clientes fijos:** agregar (nombre y WhatsApp), copiar o mandar por WhatsApp su link personal,
   dar de baja (el link deja de funcionar).
 - **Ajustes:** cambiar la contraseña.
