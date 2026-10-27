@@ -509,7 +509,7 @@
    "precio_nuevo": 4567,
    "precio_fijo": 4339,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793133684/yhqmdoi85zkdw4zkntge.jpg"
   },
   {
    "id": "min-emp-medallon-quinoa-andina",
@@ -524,7 +524,7 @@
    "precio_nuevo": 4567,
    "precio_fijo": 4339,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793133751/kz7p0lktiqstyigq9fdv.jpg"
   },
   {
    "id": "min-emp-medallon-quinoa-mediterranea",
@@ -539,7 +539,7 @@
    "precio_nuevo": 4567,
    "precio_fijo": 4339,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793133834/wunv6d1buomqadumaibu.jpg"
   },
   {
    "id": "min-emp-medallon-quinoa-sin-sal",
@@ -569,7 +569,7 @@
    "precio_nuevo": 5419,
    "precio_fijo": 5148,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793133988/r40aliockmqelo9xpyag.jpg"
   },
   {
    "id": "min-emp-toques-de-lentejas",
@@ -584,7 +584,7 @@
    "precio_nuevo": 5419,
    "precio_fijo": 5148,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793134048/zztr1lxmsuv6iceff2ow.jpg"
   },
   {
    "id": "min-emp-toques-thai",
@@ -599,7 +599,7 @@
    "precio_nuevo": 5419,
    "precio_fijo": 5148,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793134128/tthxbnskyukzfgcwpvb2.jpg"
   },
   {
    "id": "min-emp-toques-tikka-spicy",
@@ -614,7 +614,7 @@
    "precio_nuevo": 5419,
    "precio_fijo": 5148,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793134185/qn2rz5u8colprdjgdblf.jpg"
   },
   {
    "id": "min-emp-tofu-clasico",
@@ -749,7 +749,7 @@
    "precio_nuevo": 1700,
    "precio_fijo": 1615,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793134847/wtzpwmbjvk0v9uzu0bhx.jpg"
   },
   {
    "id": "min-emp-papas-baston-tradicional-2",
@@ -764,7 +764,7 @@
    "precio_nuevo": 2720,
    "precio_fijo": 2584,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793134911/fnb0ipkex8kutlyv4420.jpg"
   },
   {
    "id": "min-emp-papas-cubo",
@@ -779,7 +779,7 @@
    "precio_nuevo": 2650,
    "precio_fijo": 2518,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793134987/kvwtzqol7btmgdvpmf07.jpg"
   },
   {
    "id": "min-emp-papas-ondeadas",
@@ -794,7 +794,7 @@
    "precio_nuevo": 2720,
    "precio_fijo": 2584,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793135055/zrbkehila6mvdwx4n0ok.jpg"
   },
   {
    "id": "min-emp-budin-de-cacao-y-nuez",
@@ -809,7 +809,7 @@
    "precio_nuevo": 12000,
    "precio_fijo": 11400,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793135201/xuoxzwaj3xbaylu0vb1l.jpg"
   },
   {
    "id": "min-emp-budin-de-mandarina",
@@ -839,7 +839,7 @@
    "precio_nuevo": 12000,
    "precio_fijo": 11400,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793135602/ppafj2dordzugd7hpzmt.jpg"
   },
   {
    "id": "min-emp-budin-de-zanahoria",
@@ -854,7 +854,7 @@
    "precio_nuevo": 12000,
    "precio_fijo": 11400,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793135702/scqisrnm70slt0vypjar.jpg"
   },
   {
    "id": "min-emp-fideos-cinta-al-huevo",
@@ -869,7 +869,7 @@
    "precio_nuevo": 6000,
    "precio_fijo": 5700,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793135770/eiicwatcvbxenyp8p8bl.jpg"
   },
   {
    "id": "min-emp-fideos-de-espinaca",
@@ -959,7 +959,7 @@
    "precio_nuevo": 10500,
    "precio_fijo": 9975,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793135856/ntu20if3hppacjdzhzld.jpg"
   },
   {
    "id": "min-emp-pan-de-campo",
@@ -1019,7 +1019,7 @@
    "precio_nuevo": 3000,
    "precio_fijo": 2850,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793135963/bus4cbe4p4s3z9gmvm3t.jpg"
   },
   {
    "id": "min-emp-muffins-cacao",
@@ -1079,7 +1079,7 @@
    "precio_nuevo": 7000,
    "precio_fijo": 6650,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793136021/gp1dl1zekt4ihtn8fqab.jpg"
   },
   {
    "id": "min-emp-empanadas-tucumana",
@@ -1139,7 +1139,7 @@
    "precio_nuevo": 5294,
    "precio_fijo": 5109,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793136093/jst8kefpqwp3e5qpeffv.jpg"
   },
   {
    "id": "min-emp-frutillas",
@@ -1153,8 +1153,8 @@
    "kilos_caja": null,
    "precio_nuevo": null,
    "precio_fijo": null,
-   "stock": true,
-   "imagen": ""
+   "stock": false,
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793136169/tvshxa7kitzwvynwbzsx.jpg"
   },
   {
    "id": "min-emp-mix-4-frutos-rojos",
@@ -1169,7 +1169,7 @@
    "precio_nuevo": 7639,
    "precio_fijo": 7371,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793136222/irgfgbuokp38yfkiplcr.jpg"
   },
   {
    "id": "min-emp-mix-berries",
@@ -1184,7 +1184,7 @@
    "precio_nuevo": 5320,
    "precio_fijo": 5134,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793136313/nyac4qlcsjevfyoxifma.jpg"
   },
   {
    "id": "min-emp-mix-patagonico",
@@ -1199,7 +1199,7 @@
    "precio_nuevo": 16200,
    "precio_fijo": 15633,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793136360/vzy1qzk9lfnl3aiupeio.jpg"
   },
   {
    "id": "min-emp-mix-premium",
