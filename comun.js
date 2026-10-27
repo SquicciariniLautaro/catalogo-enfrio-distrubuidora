@@ -34,9 +34,9 @@ function sinTildes(texto) {
 
 // Las fotos de Cloudinary se piden ya achicadas y en el formato más liviano que acepte el navegador.
 // Solo sirven direcciones de internet: una ruta de la computadora (file:///C:/…) no la ve nadie más.
-function fotoOptimizada(url, ancho) {
+function fotoOptimizada(url, ancho, extra = "") {
     if (!/^https?:\/\//i.test(url || "")) return "";
-    return url.replace(/(res\.cloudinary\.com\/[^/]+\/image\/upload\/)(?!f_auto)/, `$1f_auto,q_auto,c_limit,w_${ancho}/`);
+    return url.replace(/(res\.cloudinary\.com\/[^/]+\/image\/upload\/)(?!f_auto)/, `$1f_auto,q_auto,c_limit,w_${ancho}${extra ? "," + extra : ""}/`);
 }
 
 function iconoCategoria(categoria) {

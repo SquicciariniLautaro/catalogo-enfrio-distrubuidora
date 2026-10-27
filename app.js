@@ -197,8 +197,10 @@ function tarjeta(p) {
     const datos = CATEGORIAS[p.categoria] || CATEGORIA_GENERICA;
     const enPedido = pedido[p.id] || 0;
     const foto = fotoOptimizada(p.imagen, 600);
+    // La foto se ve entera y centrada; el espacio que sobra lo llena la misma foto desenfocada.
     const visual = foto
-        ? `<img src="${escapar(foto)}" alt="${escapar(p.nombre)}" loading="lazy">`
+        ? `<img class="tarjeta__fondo" src="${escapar(fotoOptimizada(p.imagen, 120, "e_blur:600"))}" alt="" aria-hidden="true" loading="lazy">
+           <img class="tarjeta__foto" src="${escapar(foto)}" alt="${escapar(p.nombre)}" loading="lazy">`
         : iconoCategoria(p.categoria);
 
     return `
@@ -206,10 +208,10 @@ function tarjeta(p) {
                  style="--tinte:${datos.color};--tinte-suave:color-mix(in srgb, ${datos.color} 13%, var(--superficie))">
             <div class="tarjeta__visual ${foto ? "tarjeta__visual--foto" : ""}">
                 ${visual}
-                ${p.marca ? `<span class="tarjeta__marca">${escapar(p.marca)}</span>` : ""}
                 ${!p.hayStock ? `<span class="etiqueta etiqueta--agotado">Sin stock</span>` : p.sinTacc ? `<span class="etiqueta etiqueta--tacc">Sin TACC</span>` : ""}
             </div>
             <div class="tarjeta__cuerpo">
+                ${p.marca ? `<span class="tarjeta__marca">${escapar(p.marca)}</span>` : ""}
                 <h3 class="tarjeta__nombre">${escapar(p.nombre)}</h3>
                 ${p.presentacion.length ? `<div class="presentacion">${p.presentacion.map((t) => `<span>${escapar(t)}</span>`).join("")}</div>` : ""}
                 <div class="precios">${bloquePrecio(p)}</div>

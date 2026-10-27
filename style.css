@@ -186,7 +186,7 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 
 .seccion { padding-top: 28px; scroll-margin-top: 150px; }
 .seccion__titulo { display: flex; align-items: center; gap: 12px; margin: 0 0 14px; font-size: 1.25rem; font-weight: 600; }
-.seccion__titulo small { font-size: .8rem; font-weight: 400; color: var(--texto-2); }
+.seccion__titulo small { font-size: .8rem; font-weight: 400; color: var(--texto-2); white-space: nowrap; }
 .seccion__icono { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; color: #fff; }
 .seccion__icono svg { width: 22px; height: 22px; }
 
@@ -202,21 +202,30 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
 .tarjeta--agotado { opacity: .72; }
 .tarjeta--elegido { border-color: var(--azul); box-shadow: 0 0 0 1px var(--azul), var(--sombra); }
 
+/* Todas las tarjetas tienen el mismo recuadro (con o sin foto), así las filas quedan parejas */
 .tarjeta__visual {
-    position: relative; height: 112px; display: grid; place-items: center;
+    position: relative; aspect-ratio: 4 / 3; display: grid; place-items: center; overflow: hidden;
     background: var(--tinte-suave);
 }
-.tarjeta__visual svg { width: 48px; height: 48px; color: var(--tinte); stroke-width: 1.4; }
-.tarjeta__visual img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-/* Con foto, el recuadro es más alto y la foto no se sale de él */
-.tarjeta__visual--foto { height: auto; aspect-ratio: 4 / 3; overflow: hidden; background: #fff; }
+.tarjeta__visual svg { width: 56px; height: 56px; color: var(--tinte); stroke-width: 1.3; }
+.tarjeta__visual--foto { background: #f4f7f9; }
+/* Fondo: la misma foto, desenfocada y suave, para llenar los costados sin recortar nada */
+.tarjeta__fondo {
+    position: absolute; inset: -12%; width: 124%; height: 124%; object-fit: cover;
+    opacity: .55; filter: saturate(1.1);
+}
+/* Foto: entera y centrada, nunca recortada */
+.tarjeta__foto {
+    position: absolute; inset: 6%; width: 88%; height: 88%; object-fit: contain;
+    filter: drop-shadow(0 6px 14px rgba(0, 0, 0, .18)); transition: transform .35s ease;
+}
+.tarjeta:hover .tarjeta__foto { transform: scale(1.03); }
 .tarjeta__marca {
-    position: absolute; left: 12px; bottom: 10px; padding: 3px 10px; border-radius: 999px;
-    background: var(--superficie); color: var(--texto); font-size: .72rem; font-weight: 600;
-    letter-spacing: .03em; box-shadow: 0 1px 3px rgba(0, 0, 0, .08);
+    margin-bottom: -4px; color: var(--azul-fuerte); font-size: .7rem; font-weight: 600;
+    letter-spacing: .08em; text-transform: uppercase;
 }
 .etiqueta {
-    position: absolute; right: 10px; top: 10px; padding: 3px 9px; border-radius: 999px;
+    position: absolute; right: 10px; top: 10px; z-index: 1; padding: 3px 9px; border-radius: 999px;
     font-size: .7rem; font-weight: 600;
 }
 .etiqueta--agotado { background: #fde8e8; color: var(--rojo); }
@@ -442,15 +451,13 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
     .segmentado button svg { display: none; }
     .buscador { flex-basis: 100%; height: 42px; order: -1; }
     .grilla { grid-template-columns: 1fr 1fr; gap: 10px; }
-    .tarjeta__visual { height: 84px; }
-    .tarjeta__visual--foto { height: auto; }
-    .tarjeta__visual svg { width: 38px; height: 38px; }
+    .tarjeta__visual svg { width: 40px; height: 40px; }
     .tarjeta__cuerpo { padding: 10px; gap: 6px; }
     .tarjeta__nombre { font-size: .86rem; }
     .tarjeta__pie { padding: 0 10px 10px; }
     .precio__valor { font-size: 1.12rem; }
     .boton-agregar, .cantidad { height: 38px; font-size: .84rem; }
-    .tarjeta__marca { left: 8px; bottom: 8px; font-size: .66rem; }
+    .tarjeta__marca { font-size: .64rem; }
     .seccion { scroll-margin-top: 200px; }
 }
 
