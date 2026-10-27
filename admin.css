@@ -115,7 +115,7 @@
     flex-shrink: 0; width: 120px; height: 120px; border-radius: 14px; overflow: hidden;
     border: 1px solid var(--borde); background: #fff; display: grid; place-items: center;
 }
-.foto__vista img { width: 100%; height: 100%; object-fit: cover; }
+.foto__vista img { width: 100%; height: 100%; object-fit: contain; }
 .foto__vista--vacia { background: color-mix(in srgb, var(--tinte) 12%, var(--superficie)); color: var(--tinte); border-style: dashed; }
 .foto__vista--vacia svg { width: 44px; height: 44px; stroke-width: 1.4; }
 .foto__acciones { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
