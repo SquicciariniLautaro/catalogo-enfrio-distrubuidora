@@ -32,6 +32,13 @@ function sinTildes(texto) {
     return String(texto ?? "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
 }
 
+// Las fotos de Cloudinary se piden ya achicadas y en el formato más liviano que acepte el navegador.
+// Solo sirven direcciones de internet: una ruta de la computadora (file:///C:/…) no la ve nadie más.
+function fotoOptimizada(url, ancho) {
+    if (!/^https?:\/\//i.test(url || "")) return "";
+    return url.replace(/(res\.cloudinary\.com\/[^/]+\/image\/upload\/)(?!f_auto)/, `$1f_auto,q_auto,c_limit,w_${ancho}/`);
+}
+
 function iconoCategoria(categoria) {
     const datos = CATEGORIAS[categoria] || CATEGORIA_GENERICA;
     return `<svg viewBox="0 0 24 24" aria-hidden="true">${datos.icono}</svg>`;

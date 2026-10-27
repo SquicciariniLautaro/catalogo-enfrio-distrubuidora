@@ -309,11 +309,18 @@ function filaProducto(p) {
     return `
         <div class="fila-producto ${cambiado(p) ? "fila-producto--cambiada" : ""} ${p.stock ? "" : "fila-producto--agotada"}" data-id="${escapar(p.id)}">
             <div class="fila-producto__info">
-                <span class="fila-producto__nombre">${escapar(p.producto)}${nuevo ? ' <span class="insignia insignia--nuevo">Nuevo</span>' : ""}</span>
-                <span class="fila-producto__detalle">
-                    <span class="insignia">${NOMBRE_CANAL[p.canal] || p.canal}</span>
-                    <span class="insignia">${NOMBRE_VENTA[p.venta] || p.venta}</span>
-                    ${escapar([p.marca, p.presentacion].filter(Boolean).join(" · "))}
+                <button class="miniatura ${fotoOptimizada(p.imagen, 120) ? "" : "miniatura--vacia"}" type="button" data-accion="editar"
+                        aria-label="${p.imagen ? "Cambiar foto" : "Agregar foto"} de ${escapar(p.producto)}"
+                        style="--tinte:${(CATEGORIAS[p.categoria] || CATEGORIA_GENERICA).color}">
+                    ${fotoOptimizada(p.imagen, 120) ? `<img src="${escapar(fotoOptimizada(p.imagen, 120))}" alt="" loading="lazy">` : iconoCategoria(p.categoria)}
+                </button>
+                <span class="fila-producto__textos">
+                    <span class="fila-producto__nombre">${escapar(p.producto)}${nuevo ? ' <span class="insignia insignia--nuevo">Nuevo</span>' : ""}</span>
+                    <span class="fila-producto__detalle">
+                        <span class="insignia">${NOMBRE_CANAL[p.canal] || p.canal}</span>
+                        <span class="insignia">${NOMBRE_VENTA[p.venta] || p.venta}</span>
+                        ${escapar([p.marca, p.presentacion].filter(Boolean).join(" · "))}
+                    </span>
                 </span>
             </div>
             <label class="fila-producto__precio">
@@ -436,8 +443,76 @@ function abrirDialogo(producto) {
         else campo.value = p[campo.name] ?? "";
     }
     actualizarCampoKilos();
+    $("#foto-archivo").value = "";
+    dibujarFoto();
     dialogo.showModal();
 }
+
+// ---------- Fotos (Cloudinary) ----------
+// Se suben directo desde el navegador con un perfil "sin firmar": no hace falta ninguna
+// clave secreta. La dirección de la foto queda en el campo oculto "imagen" del producto.
+const MAXIMO_FOTO = 5 * 1024 * 1024;
+let subiendoFoto = false;
+
+function dibujarFoto(estado) {
+    const url = fotoOptimizada(formProducto.elements.imagen.value, 360);
+    const categoria = formProducto.elements.categoria.value;
+    const vista = $("#foto-vista");
+    vista.style.setProperty("--tinte", (CATEGORIAS[categoria] || CATEGORIA_GENERICA).color);
+    vista.classList.toggle("foto__vista--vacia", !url);
+    vista.innerHTML = url ? `<img src="${escapar(url)}" alt="">` : iconoCategoria(categoria);
+    $("#foto-texto-boton").textContent = subiendoFoto ? "Subiendo…" : url ? "Cambiar foto" : "Subir foto";
+    $("#foto-quitar").hidden = !formProducto.elements.imagen.value || subiendoFoto;
+    $("#foto-estado").textContent = estado || "JPG, PNG o WEBP, hasta 5 MB. Mejor con fondo claro y el producto centrado.";
+    $("#foto-estado").classList.toggle("ayuda--error", Boolean(estado) && !subiendoFoto && estado.startsWith("No"));
+}
+
+async function subirFoto(archivo) {
+    const { nube, perfil } = CONFIG.cloudinary || {};
+    if (!nube || !perfil) throw new ErrorGuardado("No se configuró Cloudinary en config.js.");
+    if (!/^image\/(jpeg|png|webp)$/.test(archivo.type)) throw new ErrorGuardado("No se pudo: la foto tiene que ser JPG, PNG o WEBP.");
+    if (archivo.size > MAXIMO_FOTO) throw new ErrorGuardado("No se pudo: la foto pesa más de 5 MB.");
+
+    const datos = new FormData();
+    datos.append("file", archivo);
+    datos.append("upload_preset", perfil);
+    let respuesta;
+    try {
+        respuesta = await fetch(`https://api.cloudinary.com/v1_1/${encodeURIComponent(nube)}/image/upload`, { method: "POST", body: datos });
+    } catch {
+        throw new ErrorGuardado("No se pudo subir: revisá la conexión a internet.");
+    }
+    const resultado = await respuesta.json().catch(() => ({}));
+    if (!respuesta.ok) {
+        console.error("Cloudinary:", resultado);
+        throw new ErrorGuardado(`No se pudo subir la foto (${resultado.error?.message || respuesta.status}).`);
+    }
+    return resultado.secure_url;
+}
+
+$("#foto-archivo").addEventListener("change", async (e) => {
+    const archivo = e.target.files[0];
+    if (!archivo || subiendoFoto) return;
+    subiendoFoto = true;
+    dibujarFoto("Subiendo la foto…");
+    try {
+        formProducto.elements.imagen.value = await subirFoto(archivo);
+        subiendoFoto = false;
+        dibujarFoto('Foto subida. Tocá "Listo" y después "Publicar cambios".');
+    } catch (error) {
+        subiendoFoto = false;
+        dibujarFoto(error instanceof ErrorGuardado ? error.message : "No se pudo subir la foto. Probá de nuevo.");
+    } finally {
+        e.target.value = "";
+    }
+});
+
+$("#foto-quitar").addEventListener("click", () => {
+    formProducto.elements.imagen.value = "";
+    dibujarFoto("Foto quitada. Tocá \"Listo\" para guardar.");
+});
+
+formProducto.elements.categoria.addEventListener("change", () => dibujarFoto());
 
 function actualizarCampoKilos() {
     $("#campo-kilos").hidden = formProducto.elements.unidad.value !== "kg";
@@ -454,6 +529,7 @@ function idNuevo(p) {
 
 formProducto.addEventListener("submit", (e) => {
     e.preventDefault();
+    if (subiendoFoto) return avisar("Esperá a que termine de subir la foto.", "error");
     const f = formProducto.elements;
     const datos = {
         canal: f.canal.value,

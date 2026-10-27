@@ -196,14 +196,15 @@ function dibujarProductos() {
 function tarjeta(p) {
     const datos = CATEGORIAS[p.categoria] || CATEGORIA_GENERICA;
     const enPedido = pedido[p.id] || 0;
-    const visual = p.imagen
-        ? `<img src="${escapar(p.imagen)}" alt="" loading="lazy">`
+    const foto = fotoOptimizada(p.imagen, 600);
+    const visual = foto
+        ? `<img src="${escapar(foto)}" alt="${escapar(p.nombre)}" loading="lazy">`
         : iconoCategoria(p.categoria);
 
     return `
         <article class="tarjeta ${p.hayStock ? "" : "tarjeta--agotado"} ${enPedido ? "tarjeta--elegido" : ""}" data-id="${escapar(p.id)}"
                  style="--tinte:${datos.color};--tinte-suave:color-mix(in srgb, ${datos.color} 13%, var(--superficie))">
-            <div class="tarjeta__visual">
+            <div class="tarjeta__visual ${foto ? "tarjeta__visual--foto" : ""}">
                 ${visual}
                 ${p.marca ? `<span class="tarjeta__marca">${escapar(p.marca)}</span>` : ""}
                 ${!p.hayStock ? `<span class="etiqueta etiqueta--agotado">Sin stock</span>` : p.sinTacc ? `<span class="etiqueta etiqueta--tacc">Sin TACC</span>` : ""}
