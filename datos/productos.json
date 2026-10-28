@@ -2,6 +2,38 @@
  "actualizado": "Octubre 2026",
  "productos": [
   {
+   "id": "may-emp-free-sin-tacc",
+   "canal": "mayorista",
+   "venta": "empaquetado",
+   "categoria": "Helados y postres",
+   "marca": "FRANUI",
+   "producto": "FREE SIN TACC",
+   "presentacion": "CAJA 24 UND",
+   "unidad": "caja",
+   "kilos_caja": null,
+   "precio_nuevo": null,
+   "precio_fijo": null,
+   "stock": true,
+   "imagen": "",
+   "codigo_barras": "7798147780062"
+  },
+  {
+   "id": "may-emp-pink-sin-tacc",
+   "canal": "mayorista",
+   "venta": "empaquetado",
+   "categoria": "Helados y postres",
+   "marca": "FRANUI",
+   "producto": "PINK SIN TACC",
+   "presentacion": "CAJA X 24UND",
+   "unidad": "caja",
+   "kilos_caja": null,
+   "precio_nuevo": null,
+   "precio_fijo": null,
+   "stock": true,
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793220147/ye99nnzvkwrjmaiznhw2.jpg",
+   "codigo_barras": "7798147780062"
+  },
+  {
    "id": "may-emp-chocolate-con-leche-sin-tacc",
    "canal": "mayorista",
    "venta": "empaquetado",
