@@ -238,6 +238,10 @@ svg { width: 20px; height: 20px; fill: none; stroke: currentColor; stroke-width:
     padding: 2px 8px; border-radius: 6px; background: var(--fondo); border: 1px solid var(--borde);
     font-size: .74rem; color: var(--texto-2);
 }
+.tarjeta__codigo {
+    margin: 0; font-size: .72rem; color: var(--texto-2); font-variant-numeric: tabular-nums;
+    overflow-wrap: anywhere;
+}
 
 .precios { margin-top: auto; padding-top: 6px; }
 .precio { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; }

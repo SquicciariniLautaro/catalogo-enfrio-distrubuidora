@@ -63,8 +63,9 @@ function prepararProductos(lista) {
                 precio: { nuevo, fijo: Number(p.precio_fijo) || nuevo },
                 hayStock: p.stock !== false,
                 imagen: p.imagen || "",
+                codigoBarras: p.codigo_barras || "",
                 sinTacc: /sin tacc|sin gluten/i.test(p.producto) || p.categoria === "Sin gluten",
-                texto: sinTildes(`${p.producto} ${p.marca} ${p.categoria} ${p.presentacion}`),
+                texto: sinTildes(`${p.producto} ${p.marca} ${p.categoria} ${p.presentacion} ${p.codigo_barras || ""}`),
             };
         });
 }
@@ -214,6 +215,7 @@ function tarjeta(p) {
                 ${p.marca ? `<span class="tarjeta__marca">${escapar(p.marca)}</span>` : ""}
                 <h3 class="tarjeta__nombre">${escapar(p.nombre)}</h3>
                 ${p.presentacion.length ? `<div class="presentacion">${p.presentacion.map((t) => `<span>${escapar(t)}</span>`).join("")}</div>` : ""}
+                ${p.codigoBarras ? `<p class="tarjeta__codigo">Cód. de barras: ${escapar(p.codigoBarras)}</p>` : ""}
                 <div class="precios">${bloquePrecio(p)}</div>
             </div>
             <div class="tarjeta__pie">${botonPedido(p)}</div>

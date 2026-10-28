@@ -297,7 +297,7 @@ function productosFiltrados() {
         (!canal || p.canal === canal) &&
         (!venta || p.venta === venta) &&
         (!categoria || p.categoria === categoria) &&
-        palabras.every((palabra) => sinTildes(`${p.producto} ${p.marca} ${p.presentacion}`).includes(palabra)));
+        palabras.every((palabra) => sinTildes(`${p.producto} ${p.marca} ${p.presentacion} ${p.codigo_barras || ""}`).includes(palabra)));
 }
 
 function cambiado(p) {
@@ -319,7 +319,7 @@ function filaProducto(p) {
                     <span class="fila-producto__detalle">
                         <span class="insignia">${NOMBRE_CANAL[p.canal] || p.canal}</span>
                         <span class="insignia">${NOMBRE_VENTA[p.venta] || p.venta}</span>
-                        ${escapar([p.marca, p.presentacion].filter(Boolean).join(" · "))}
+                        ${escapar([p.marca, p.presentacion, p.codigo_barras && `Cód. ${p.codigo_barras}`].filter(Boolean).join(" · "))}
                     </span>
                 </span>
             </div>
@@ -574,6 +574,11 @@ function actualizarCampoKilos() {
     $("#campo-kilos").hidden = formProducto.elements.unidad.value !== "kg";
 }
 formProducto.elements.unidad.addEventListener("change", actualizarCampoKilos);
+
+// La pistola lectora escribe el código y aprieta Enter: que no cierre la ventana.
+formProducto.elements.codigo_barras.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") e.preventDefault();
+});
 $("#boton-nuevo-producto").addEventListener("click", () => abrirDialogo(null));
 
 function idNuevo(p) {
@@ -601,7 +606,11 @@ formProducto.addEventListener("submit", (e) => {
         stock: f.stock.checked,
         imagen: f.imagen.value.trim(),
     };
+    // Solo se guarda si tiene código, así los productos sin código no figuran como cambiados.
+    const codigo = f.codigo_barras.value.replace(/\s+/g, "");
+    if (codigo) datos.codigo_barras = codigo;
     if (editando) {
+        delete editando.codigo_barras;
         Object.assign(editando, datos);
     } else {
         const nuevo = { id: "", ...datos };

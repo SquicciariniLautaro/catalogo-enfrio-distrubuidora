@@ -75,6 +75,9 @@ llave y la contraseña. Los productos y los clientes fijos no se pierden.
   agregar o eliminar productos; subir o bajar un % los precios de los productos filtrados; recalcular
   el precio fijo como "lista menos X%". Los cambios se acumulan y se publican todos juntos con
   **Publicar cambios**.
+- **Código de barras:** en la ventana de cada producto se puede escribir o pasar con la pistola lectora
+  (el Enter de la pistola no cierra la ventana). Se ve en la tarjeta del catálogo y se puede buscar por
+  código tanto en el catálogo como en el panel. Es opcional.
 - **Fotos:** en la ventana de cada producto, **Subir foto** la sube a Cloudinary (cuenta `ikzhq00e`,
   perfil de subida sin firmar `enfrio-catalogo`, carpeta `enfrio`). Antes de subirla, el panel achica la
   foto a 2000 px y la pasa a WEBP (una foto de 15 MB queda en ~1 MB), así entran fotos de celular o de
