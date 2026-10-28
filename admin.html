@@ -33,10 +33,36 @@
                     <input type="password" id="ingreso-contrasena" autocomplete="current-password" required>
                 </label>
                 <button class="boton boton--primario" type="submit">Entrar</button>
+                <button class="boton-enlace" type="button" id="boton-soy-dueno">Soy el dueño del sistema: entrar con la llave de GitHub</button>
+            </form>
+
+            <form id="form-dueno" class="formulario" hidden>
+                <p class="ayuda">Solo para el dueño del sistema. Pegá la llave de GitHub (la que empieza con <b>github_pat_</b>) y elegí tu contraseña de dueño: con esa vas a entrar de acá en adelante.</p>
+                <label class="campo">
+                    <span>Llave de GitHub</span>
+                    <input type="password" id="dueno-llave" autocomplete="off" placeholder="github_pat_…" required>
+                </label>
+                <label class="campo">
+                    <span>Tu contraseña de dueño (mínimo 10 caracteres)</span>
+                    <input type="password" id="dueno-contrasena" autocomplete="new-password" minlength="10" required>
+                </label>
+                <label class="campo">
+                    <span>Repetir tu contraseña</span>
+                    <input type="password" id="dueno-repetir" autocomplete="new-password" minlength="10" required>
+                </label>
+                <div class="formulario" id="campos-negocio-dueno" hidden>
+                    <p class="ayuda">Es la primera vez que entrás así (o la llave es nueva), así que hace falta también la contraseña del negocio. Si la sabés, ponela y queda igual. Si no la sabés, escribí una nueva: el negocio va a tener que entrar con esa.</p>
+                    <label class="campo">
+                        <span>Contraseña del negocio</span>
+                        <input type="password" id="dueno-negocio" autocomplete="off">
+                    </label>
+                </div>
+                <button class="boton boton--primario" type="submit">Entrar como dueño</button>
+                <button class="boton-enlace" type="button" id="boton-volver-ingreso">Volver</button>
             </form>
 
             <form id="form-inicial" class="formulario" hidden>
-                <p class="ayuda">Configuración inicial. Se hace una sola vez: pegá la llave de GitHub (ver la guía en el README) y elegí la contraseña que va a usar el negocio para entrar.</p>
+                <p class="ayuda">Configuración inicial. Se hace una sola vez: pegá la llave de GitHub (ver la guía en el README), elegí la contraseña que va a usar el negocio y la tuya de dueño del sistema.</p>
                 <label class="campo" id="campo-llave-inicial">
                     <span>Llave de GitHub</span>
                     <input type="password" id="inicial-llave" autocomplete="off" placeholder="github_pat_…">
@@ -48,6 +74,14 @@
                 <label class="campo">
                     <span>Repetir contraseña</span>
                     <input type="password" id="inicial-repetir" autocomplete="new-password" minlength="10" required>
+                </label>
+                <label class="campo">
+                    <span>Tu contraseña de dueño del sistema (mínimo 10 caracteres)</span>
+                    <input type="password" id="inicial-dueno" autocomplete="new-password" minlength="10" required>
+                </label>
+                <label class="campo">
+                    <span>Repetir tu contraseña de dueño</span>
+                    <input type="password" id="inicial-dueno-repetir" autocomplete="new-password" minlength="10" required>
                 </label>
                 <button class="boton boton--primario" type="submit">Guardar y entrar</button>
             </form>
@@ -62,7 +96,7 @@
             <div class="contenedor encabezado__fila">
                 <div class="admin-marca">
                     <img src="img/logo-negro.png" alt="EnFrío Distribuidora" class="marca__logo">
-                    <span>Panel</span>
+                    <span id="rol-panel">Panel</span>
                 </div>
                 <div class="encabezado__acciones">
                     <a class="boton boton--borde" href="./" target="_blank" rel="noopener">Ver catálogo</a>
@@ -148,7 +182,8 @@
         <!-- Ajustes -->
         <section class="contenedor pestana" id="pestana-ajustes" hidden>
             <div class="tarjeta-panel">
-                <h2>Cambiar contraseña del panel</h2>
+                <h2 id="titulo-mi-contrasena">Cambiar contraseña del panel</h2>
+                <p class="ayuda" id="ayuda-mi-contrasena"></p>
                 <form id="form-contrasena" class="formulario">
                     <label class="campo">
                         <span>Contraseña nueva (mínimo 10 caracteres)</span>
@@ -159,6 +194,21 @@
                         <input type="password" id="nueva-repetir" autocomplete="new-password" minlength="10" required>
                     </label>
                     <button class="boton boton--primario" type="submit">Cambiar contraseña</button>
+                </form>
+            </div>
+            <div class="tarjeta-panel" id="tarjeta-negocio" hidden>
+                <h2>Contraseña del negocio</h2>
+                <p class="ayuda">Si el negocio se olvidó la contraseña (o querés cambiársela), poné una nueva acá y pasásela. Tu acceso de dueño no cambia.</p>
+                <form id="form-contrasena-negocio" class="formulario">
+                    <label class="campo">
+                        <span>Contraseña nueva del negocio (mínimo 10 caracteres)</span>
+                        <input type="password" id="negocio-nueva" autocomplete="new-password" minlength="10" required>
+                    </label>
+                    <label class="campo">
+                        <span>Repetir contraseña nueva</span>
+                        <input type="password" id="negocio-repetir" autocomplete="new-password" minlength="10" required>
+                    </label>
+                    <button class="boton boton--primario" type="submit">Cambiar contraseña del negocio</button>
                 </form>
             </div>
         </section>

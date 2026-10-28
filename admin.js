@@ -155,16 +155,59 @@ async function ocupado(boton, tarea) {
 }
 
 // ---------- Ingreso ----------
-// datos/acceso.json guarda, cifrado con la contraseña, la llave de GitHub y la clave
-// con la que se cifra la lista de clientes. Cambiar la contraseña solo reescribe este archivo.
-async function cifrarAcceso(contrasena, llave, claveDatos) {
+// datos/acceso.json guarda la llave de GitHub y la clave con la que se cifra la lista de
+// clientes en "ranuras" cifradas: una con la contraseña del negocio, otra con la del dueño
+// del sistema (Lambda) y otra con la propia llave de GitHub, que le deja al dueño volver a
+// entrar aunque se pierdan las contraseñas. Cambiar una contraseña solo reescribe su ranura.
+async function cifrarRanura(contrasena, valor) {
     const sal = Cifrado.nuevaSal();
     const clave = await Cifrado.claveDeContrasena(contrasena, sal, VUELTAS_CONTRASENA);
-    return { sal, vueltas: VUELTAS_CONTRASENA, secreto: await Cifrado.cifrar(clave, { llave, claveDatos }) };
+    return { sal, vueltas: VUELTAS_CONTRASENA, secreto: await Cifrado.cifrar(clave, valor) };
+}
+
+async function abrirRanura(ranura, contrasena) {
+    if (!ranura || !contrasena) return null;
+    const clave = await Cifrado.claveDeContrasena(contrasena, ranura.sal, ranura.vueltas);
+    try {
+        return await Cifrado.descifrar(clave, ranura.secreto);
+    } catch {
+        return null;
+    }
+}
+
+// El archivo de antes tenía una sola ranura sin nombre: la del negocio.
+function ranuras() {
+    const contenido = sesion.acceso?.contenido;
+    return contenido?.secreto ? { negocio: contenido } : { ...contenido };
+}
+
+const datosRanura = () => ({ llave: Almacen.llave, claveDatos: sesion.claveDatosBase64 });
+const claveDatosNueva = () => Cifrado.aBase64(crypto.getRandomValues(new Uint8Array(32)));
+
+async function guardarAcceso(nuevas, mensaje) {
+    const contenido = {
+        ...ranuras(),
+        ...nuevas,
+        recuperacion: await cifrarRanura(Almacen.llave, { claveDatos: sesion.claveDatosBase64 }),
+    };
+    const sha = await Almacen.escribir(RUTA_ACCESO, contenido, sesion.acceso.sha, mensaje);
+    sesion.acceso = { contenido, sha };
 }
 
 async function importarClaveDatos(base64) {
     return crypto.subtle.importKey("raw", Cifrado.deBase64(base64), "AES-GCM", false, ["encrypt", "decrypt"]);
+}
+
+async function entrar(rol, datos) {
+    Almacen.llave = MODO_PRUEBA ? "prueba" : datos.llave;
+    sesion.rol = rol;
+    sesion.claveDatosBase64 = datos.claveDatos;
+    sesion.claveDatos = await importarClaveDatos(datos.claveDatos);
+    if (!ranuras().recuperacion) {
+        // Panel configurado antes de que existiera la ranura de la llave: se agrega una sola vez.
+        await guardarAcceso({}, "Panel: acceso de recuperacion").catch((error) => console.error(error));
+    }
+    await abrirPanel();
 }
 
 async function iniciarAcceso() {
@@ -198,18 +241,16 @@ $("#form-ingreso").addEventListener("submit", async (e) => {
     boton.disabled = true;
     boton.textContent = "Entrando…";
     try {
-        const { sal, vueltas, secreto } = sesion.acceso.contenido;
-        const clave = await Cifrado.claveDeContrasena($("#ingreso-contrasena").value, sal, vueltas);
-        let datos;
-        try {
-            datos = await Cifrado.descifrar(clave, secreto);
-        } catch {
-            throw new ErrorGuardado("Contraseña incorrecta.");
+        const contrasena = $("#ingreso-contrasena").value;
+        const { dueno, negocio } = ranuras();
+        let rol = "dueno";
+        let datos = await abrirRanura(dueno, contrasena);
+        if (!datos) {
+            rol = "negocio";
+            datos = await abrirRanura(negocio, contrasena);
         }
-        Almacen.llave = MODO_PRUEBA ? "prueba" : datos.llave;
-        sesion.claveDatos = await importarClaveDatos(datos.claveDatos);
-        sesion.claveDatosBase64 = datos.claveDatos;
-        await abrirPanel();
+        if (!datos) throw new ErrorGuardado("Contraseña incorrecta.");
+        await entrar(rol, datos);
     } catch (error) {
         console.error(error);
         mostrarErrorAcceso(error instanceof ErrorGuardado ? error.message : "No se pudo entrar. Probá de nuevo.");
@@ -224,7 +265,10 @@ $("#form-inicial").addEventListener("submit", async (e) => {
     mostrarErrorAcceso("");
     const llave = MODO_PRUEBA ? "prueba" : $("#inicial-llave").value.trim();
     const contrasena = $("#inicial-contrasena").value;
-    if (contrasena !== $("#inicial-repetir").value) return mostrarErrorAcceso("Las contraseñas no coinciden.");
+    const contrasenaDueno = $("#inicial-dueno").value;
+    if (contrasena !== $("#inicial-repetir").value) return mostrarErrorAcceso("Las contraseñas del negocio no coinciden.");
+    if (contrasenaDueno !== $("#inicial-dueno-repetir").value) return mostrarErrorAcceso("Las contraseñas del dueño no coinciden.");
+    if (contrasena === contrasenaDueno) return mostrarErrorAcceso("La contraseña del dueño tiene que ser distinta de la del negocio.");
     if (!llave) return mostrarErrorAcceso("Falta la llave de GitHub.");
 
     const boton = e.submitter;
@@ -232,20 +276,85 @@ $("#form-inicial").addEventListener("submit", async (e) => {
     boton.textContent = "Guardando…";
     try {
         await Almacen.probarLlave(llave);
-        const claveDatos = Cifrado.aBase64(crypto.getRandomValues(new Uint8Array(32)));
         Almacen.llave = llave;
-        const contenido = await cifrarAcceso(contrasena, llave, claveDatos);
-        const sha = await Almacen.escribir(RUTA_ACCESO, contenido, null, "Panel: configuracion inicial");
-        sesion.acceso = { contenido, sha };
-        sesion.claveDatos = await importarClaveDatos(claveDatos);
-        sesion.claveDatosBase64 = claveDatos;
-        await abrirPanel();
+        sesion.claveDatosBase64 = claveDatosNueva();
+        await guardarAcceso({
+            negocio: await cifrarRanura(contrasena, datosRanura()),
+            dueno: await cifrarRanura(contrasenaDueno, datosRanura()),
+        }, "Panel: configuracion inicial");
+        await entrar("dueno", datosRanura());
     } catch (error) {
         console.error(error);
         mostrarErrorAcceso(error instanceof ErrorGuardado ? error.message : "No se pudo guardar. Probá de nuevo.");
     } finally {
         boton.disabled = false;
         boton.textContent = "Guardar y entrar";
+    }
+});
+
+// Entrada del dueño con la llave de GitHub, para cuando no sabe (o no tiene) su contraseña.
+// Con la misma llave de siempre alcanza; con una llave nueva hace falta además la contraseña
+// del negocio: la actual (se mantiene) o una nueva (el negocio pasa a entrar con esa).
+function mostrarIngresoDueno(mostrar) {
+    mostrarErrorAcceso("");
+    $("#form-ingreso").hidden = mostrar;
+    $("#form-dueno").hidden = !mostrar;
+    (mostrar ? $("#dueno-llave") : $("#ingreso-contrasena")).focus();
+}
+$("#boton-soy-dueno").addEventListener("click", () => mostrarIngresoDueno(true));
+$("#boton-volver-ingreso").addEventListener("click", () => mostrarIngresoDueno(false));
+
+$("#form-dueno").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    mostrarErrorAcceso("");
+    const llave = $("#dueno-llave").value.trim();
+    const contrasena = $("#dueno-contrasena").value;
+    const contrasenaNegocio = $("#dueno-negocio").value;
+    if (contrasena !== $("#dueno-repetir").value) return mostrarErrorAcceso("Las contraseñas no coinciden.");
+    if (contrasena === contrasenaNegocio) return mostrarErrorAcceso("Tu contraseña tiene que ser distinta de la del negocio.");
+
+    const boton = e.submitter;
+    boton.disabled = true;
+    boton.textContent = "Entrando…";
+    try {
+        await Almacen.probarLlave(llave);
+        Almacen.llave = MODO_PRUEBA ? "prueba" : llave;
+        const actuales = ranuras();
+        const nuevas = {};
+        const recuperado = await abrirRanura(actuales.recuperacion, llave);
+        if (recuperado) {
+            if (await abrirRanura(actuales.negocio, contrasena)) throw new ErrorGuardado("Tu contraseña tiene que ser distinta de la del negocio.");
+            sesion.claveDatosBase64 = recuperado.claveDatos;
+        } else {
+            if ($("#campos-negocio-dueno").hidden) {
+                $("#campos-negocio-dueno").hidden = false;
+                $("#dueno-negocio").focus();
+                throw new ErrorGuardado("Falta un paso: escribí también la contraseña del negocio (abajo).");
+            }
+            const delNegocio = await abrirRanura(actuales.negocio, contrasenaNegocio);
+            if (delNegocio) {
+                sesion.claveDatosBase64 = delNegocio.claveDatos;
+            } else {
+                if (contrasenaNegocio.length < 10) throw new ErrorGuardado("Esa no es la contraseña actual del negocio. Si querés ponerle una nueva, tiene que tener al menos 10 caracteres.");
+                const archivo = await Almacen.leer(RUTA_CLIENTES);
+                const hayClientes = Boolean(archivo.contenido?.privado);
+                const pregunta = "Esa no es la contraseña actual del negocio.\n\n¿Ponerla como contraseña NUEVA del negocio? El negocio va a tener que entrar con esta." +
+                    (hayClientes ? "\n\nOjo: la lista de clientes fijos se borra y sus links dejan de funcionar (hay que volver a darlos de alta)." : "");
+                if (!confirm(pregunta)) throw new ErrorGuardado("No se cambió nada.");
+                sesion.claveDatosBase64 = claveDatosNueva();
+                if (hayClientes) await Almacen.escribir(RUTA_CLIENTES, { clientes: [], privado: null }, archivo.sha, "Panel: reinicio de clientes fijos");
+            }
+            nuevas.negocio = await cifrarRanura(contrasenaNegocio, datosRanura());
+        }
+        nuevas.dueno = await cifrarRanura(contrasena, datosRanura());
+        await guardarAcceso(nuevas, "Panel: acceso del dueno");
+        await entrar("dueno", datosRanura());
+    } catch (error) {
+        console.error(error);
+        mostrarErrorAcceso(error instanceof ErrorGuardado ? error.message : "No se pudo entrar. Probá de nuevo.");
+    } finally {
+        boton.disabled = false;
+        boton.textContent = "Entrar como dueño";
     }
 });
 
@@ -262,6 +371,7 @@ async function abrirPanel() {
     prepararFiltros();
     dibujarProductos();
     dibujarClientes();
+    prepararAjustes();
 }
 
 $("#boton-salir").addEventListener("click", () => {
@@ -277,13 +387,20 @@ document.querySelectorAll("[data-pestana]").forEach((boton) => boton.addEventLis
 }));
 
 // ---------- Productos ----------
+const NUEVA_CATEGORIA = "__nueva__";
+
 function prepararFiltros() {
+    // Las categorías nuevas no se guardan aparte: existen mientras algún producto las use.
     const categorias = Object.keys(CATEGORIAS);
     productos.forEach((p) => { if (!categorias.includes(p.categoria)) categorias.push(p.categoria); });
-    $("#filtro-categoria").innerHTML = `<option value="">Todas las categorías</option>` +
+    const filtro = $("#filtro-categoria");
+    const elegida = filtro.value;
+    filtro.innerHTML = `<option value="">Todas las categorías</option>` +
         categorias.map((c) => `<option>${escapar(c)}</option>`).join("");
-    document.querySelector('#form-producto [name="categoria"]').innerHTML =
-        categorias.map((c) => `<option>${escapar(c)}</option>`).join("");
+    filtro.value = categorias.includes(elegida) ? elegida : "";
+    formProducto.elements.categoria.innerHTML =
+        categorias.map((c) => `<option>${escapar(c)}</option>`).join("") +
+        `<option value="${NUEVA_CATEGORIA}">+ Nueva categoría…</option>`;
     const marcas = [...new Set(productos.map((p) => p.marca).filter(Boolean))].sort();
     $("#lista-marcas").innerHTML = marcas.map((m) => `<option value="${escapar(m)}">`).join("");
 }
@@ -442,6 +559,7 @@ function abrirDialogo(producto) {
         if (campo.type === "checkbox") campo.checked = Boolean(p[campo.name]);
         else campo.value = p[campo.name] ?? "";
     }
+    categoriaAnterior = formProducto.elements.categoria.value;
     actualizarCampoKilos();
     $("#foto-archivo").value = "";
     dibujarFoto();
@@ -568,7 +686,28 @@ $("#foto-quitar").addEventListener("click", () => {
     dibujarFoto("Foto quitada. Tocá \"Listo\" para guardar.");
 });
 
-formProducto.elements.categoria.addEventListener("change", () => dibujarFoto());
+// Categoría nueva: se agrega a la lista y queda elegida. Lleva el ícono genérico.
+let categoriaAnterior = "";
+formProducto.elements.categoria.addEventListener("focus", (e) => { categoriaAnterior = e.target.value; });
+formProducto.elements.categoria.addEventListener("change", (e) => {
+    const select = e.target;
+    if (select.value === NUEVA_CATEGORIA) {
+        const escrita = (prompt("Nombre de la categoría nueva (ej.: Embutidos):") || "").trim().replace(/\s+/g, " ").slice(0, 40);
+        const nombre = escrita.charAt(0).toUpperCase() + escrita.slice(1);
+        const existente = [...select.options].find((o) => o.value !== NUEVA_CATEGORIA && sinTildes(o.value) === sinTildes(nombre));
+        if (!nombre) {
+            select.value = categoriaAnterior;
+        } else if (existente) {
+            select.value = existente.value;
+        } else {
+            select.lastElementChild.before(new Option(nombre, nombre));
+            select.value = nombre;
+            avisar(`Categoría "${nombre}" creada. Aparece en el catálogo cuando publiques el producto.`);
+        }
+    }
+    categoriaAnterior = select.value;
+    dibujarFoto();
+});
 
 function actualizarCampoKilos() {
     $("#campo-kilos").hidden = formProducto.elements.unidad.value !== "kg";
@@ -618,6 +757,7 @@ formProducto.addEventListener("submit", (e) => {
         productos.unshift(nuevo);
     }
     dialogo.close();
+    prepararFiltros();
     dibujarProductos();
 });
 
@@ -760,16 +900,39 @@ $("#lista-clientes").addEventListener("click", async (e) => {
 });
 
 // ---------- Ajustes ----------
+function prepararAjustes() {
+    const dueno = sesion.rol === "dueno";
+    $("#rol-panel").textContent = dueno ? "Panel · Dueño" : "Panel";
+    $("#titulo-mi-contrasena").textContent = dueno ? "Cambiar tu contraseña de dueño" : "Cambiar contraseña del panel";
+    $("#ayuda-mi-contrasena").textContent = dueno
+        ? "Es la contraseña con la que entrás vos. La del negocio no cambia."
+        : "El dueño del sistema (Lambda) tiene su propio acceso: cambiar esta contraseña no lo afecta.";
+    $("#tarjeta-negocio").hidden = !dueno;
+}
+
 $("#form-contrasena").addEventListener("submit", (e) => {
     e.preventDefault();
     const contrasena = $("#nueva-contrasena").value;
     if (contrasena !== $("#nueva-repetir").value) return avisar("Las contraseñas no coinciden.", "error");
     ocupado(e.submitter, async () => {
-        const contenido = await cifrarAcceso(contrasena, Almacen.llave, sesion.claveDatosBase64);
-        const sha = await Almacen.escribir(RUTA_ACCESO, contenido, sesion.acceso.sha, "Panel: cambio de contrasena");
-        sesion.acceso = { contenido, sha };
+        const otra = ranuras()[sesion.rol === "dueno" ? "negocio" : "dueno"];
+        if (await abrirRanura(otra, contrasena)) throw new ErrorGuardado("Esa contraseña ya la usa el otro acceso. Elegí otra.");
+        await guardarAcceso({ [sesion.rol]: await cifrarRanura(contrasena, datosRanura()) }, "Panel: cambio de contrasena");
         e.target.reset();
         avisar("Contraseña cambiada. La próxima vez entrá con la nueva.");
+    });
+});
+
+// Solo el dueño: ponerle una contraseña nueva al negocio (por ejemplo si se la olvidó).
+$("#form-contrasena-negocio").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const contrasena = $("#negocio-nueva").value;
+    if (contrasena !== $("#negocio-repetir").value) return avisar("Las contraseñas no coinciden.", "error");
+    ocupado(e.submitter, async () => {
+        if (await abrirRanura(ranuras().dueno, contrasena)) throw new ErrorGuardado("Tiene que ser distinta de tu contraseña de dueño.");
+        await guardarAcceso({ negocio: await cifrarRanura(contrasena, datosRanura()) }, "Panel: nueva contrasena del negocio");
+        e.target.reset();
+        avisar("Listo. Pasale la contraseña nueva al negocio.");
     });
 });
 
