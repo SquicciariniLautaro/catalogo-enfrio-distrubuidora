@@ -29,7 +29,7 @@
 
 /* ---------- Formularios ---------- */
 .formulario { display: grid; gap: 14px; }
-.formulario--fila { grid-template-columns: 2fr 1fr auto; align-items: end; }
+.formulario--fila { grid-template-columns: 2fr 1fr 130px auto; align-items: end; }
 .formulario__grilla { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .campo--ancho { grid-column: 1 / -1; }
 .campo select, .barra-herramientas select {

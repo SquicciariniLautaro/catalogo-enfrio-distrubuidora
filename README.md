@@ -97,6 +97,11 @@ mismo lugar de "Contraseña"; con la del dueño el panel dice **Panel · Dueño*
   cámara de hasta 50 MB. En el catálogo se muestran achicadas otra vez y en el formato más liviano. Si el perfil se borra o se renombra en Cloudinary, hay que actualizar `config.js`.
 - **Clientes fijos:** agregar (nombre y WhatsApp), copiar o mandar por WhatsApp su link personal,
   dar de baja (el link deja de funcionar).
+- **Descuento extra por cliente fijo:** opcional, al darlo de alta o después con el botón **Descuento**.
+  Es un % que se resta del precio fijo solo para ese cliente (todos los clientes fijos comparten el
+  mismo precio fijo; el descuento extra es lo que diferencia a uno de otro). Con su link ve los precios
+  ya descontados, y el pedido de WhatsApp dice qué descuento tiene. Va cifrado con el código del link,
+  así que nadie más lo puede leer.
 - **Categorías nuevas:** en la ventana del producto, **Categoría → + Nueva categoría…**. Llevan el ícono
   de copo de nieve y van al final del catálogo. No se guardan aparte: existen mientras algún producto
   las use.
