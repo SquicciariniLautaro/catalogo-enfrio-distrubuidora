@@ -2,6 +2,36 @@
  "actualizado": "Octubre 2026",
  "productos": [
   {
+   "id": "min-emp-medallon-de-merluza-300gr",
+   "canal": "minorista",
+   "venta": "empaquetado",
+   "categoria": "Pescados y mariscos",
+   "marca": "ARTICO",
+   "producto": "MEDALLON DE MERLUZA  300GR",
+   "presentacion": "CAJA X 25UND",
+   "unidad": "caja",
+   "kilos_caja": null,
+   "precio_nuevo": null,
+   "precio_fijo": null,
+   "stock": true,
+   "imagen": ""
+  },
+  {
+   "id": "min-emp-medallon-de-merluza-150g",
+   "canal": "minorista",
+   "venta": "empaquetado",
+   "categoria": "Pescados y mariscos",
+   "marca": "ARTICO",
+   "producto": "MEDALLON DE MERLUZA  150G",
+   "presentacion": "CAJA X 26UND",
+   "unidad": "caja",
+   "kilos_caja": null,
+   "precio_nuevo": null,
+   "precio_fijo": null,
+   "stock": true,
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793200032/efycyebbsxput0tq3cvt.jpg"
+  },
+  {
    "id": "may-emp-milanesa-merluza-400gr",
    "canal": "mayorista",
    "venta": "empaquetado",
