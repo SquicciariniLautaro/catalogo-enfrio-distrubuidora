@@ -212,36 +212,6 @@
    "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793202245/exjczpbhwihcktdmfeqr.jpg"
   },
   {
-   "id": "min-emp-medallon-de-merluza-300gr",
-   "canal": "minorista",
-   "venta": "empaquetado",
-   "categoria": "Pescados y mariscos",
-   "marca": "ARTICO",
-   "producto": "MEDALLON DE MERLUZA  300GR",
-   "presentacion": "CAJA X 25UND",
-   "unidad": "caja",
-   "kilos_caja": null,
-   "precio_nuevo": null,
-   "precio_fijo": null,
-   "stock": true,
-   "imagen": ""
-  },
-  {
-   "id": "min-emp-medallon-de-merluza-150g",
-   "canal": "minorista",
-   "venta": "empaquetado",
-   "categoria": "Pescados y mariscos",
-   "marca": "ARTICO",
-   "producto": "MEDALLON DE MERLUZA  150G",
-   "presentacion": "CAJA X 26UND",
-   "unidad": "caja",
-   "kilos_caja": null,
-   "precio_nuevo": null,
-   "precio_fijo": null,
-   "stock": true,
-   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793200032/efycyebbsxput0tq3cvt.jpg"
-  },
-  {
    "id": "may-emp-milanesa-merluza-400gr",
    "canal": "mayorista",
    "venta": "empaquetado",
@@ -285,36 +255,6 @@
    "precio_fijo": 7019,
    "stock": true,
    "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793116898/bbduenbpdptjddciw21g.jpg"
-  },
-  {
-   "id": "min-emp-milanesa-de-merluza",
-   "canal": "minorista",
-   "venta": "empaquetado",
-   "categoria": "Pescados y mariscos",
-   "marca": "Ártico",
-   "producto": "Milanesa de Merluza",
-   "presentacion": "500 g",
-   "unidad": "unidad",
-   "kilos_caja": null,
-   "precio_nuevo": 7680,
-   "precio_fijo": 7450,
-   "stock": true,
-   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793117742/rchlshhjhaednjujkre3.jpg"
-  },
-  {
-   "id": "min-emp-medallon-de-merluza",
-   "canal": "minorista",
-   "venta": "empaquetado",
-   "categoria": "Pescados y mariscos",
-   "marca": "Ártico",
-   "producto": "Medallón de Merluza",
-   "presentacion": "150 g",
-   "unidad": "unidad",
-   "kilos_caja": null,
-   "precio_nuevo": 1105,
-   "precio_fijo": 1072,
-   "stock": true,
-   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793118302/zgczb5736cfyk1wo10wb.jpg"
   },
   {
    "id": "min-emp-medallon-de-merluza-2",
