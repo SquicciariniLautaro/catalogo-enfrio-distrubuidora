@@ -163,7 +163,7 @@
         <section class="contenedor pestana" id="pestana-clientes" hidden>
             <div class="tarjeta-panel">
                 <h2>Agregar cliente fijo</h2>
-                <p class="ayuda">Cada cliente fijo recibe un <b>link personal</b>. Cuando abre el catálogo con ese link ve sus precios de cliente fijo (queda recordado en su celular). Si lo das de baja, el link deja de funcionar.</p>
+                <p class="ayuda">Cada cliente fijo recibe un <b>link personal</b>. Cuando abre el catálogo con ese link ve sus precios de cliente fijo (queda recordado en su celular). Si lo das de baja, el link deja de funcionar.<br>El <b>descuento extra</b> es opcional: se resta del precio fijo solo para ese cliente (ej.: 5 = 5% menos que el precio fijo).</p>
                 <form id="form-cliente" class="formulario formulario--fila">
                     <label class="campo">
                         <span>Nombre o comercio</span>
@@ -172,6 +172,10 @@
                     <label class="campo">
                         <span>WhatsApp (opcional)</span>
                         <input type="tel" id="cliente-whatsapp" maxlength="20" placeholder="Ej.: 3885123456">
+                    </label>
+                    <label class="campo campo--corto">
+                        <span>Descuento extra (%)</span>
+                        <input type="number" id="cliente-descuento" min="0" max="50" step="0.5" inputmode="decimal" placeholder="0">
                     </label>
                     <button class="boton boton--primario" type="submit">Agregar y crear link</button>
                 </form>

@@ -819,9 +819,10 @@ function dibujarClientes() {
         <div class="fila-cliente" data-id="${escapar(c.id)}">
             <div class="fila-cliente__info">
                 <span class="fila-producto__nombre">${escapar(c.nombre)}</span>
-                <span class="fila-producto__detalle">${c.whatsapp ? escapar(c.whatsapp) + " · " : ""}desde ${new Date(c.alta).toLocaleDateString("es-AR")}</span>
+                <span class="fila-producto__detalle">${c.whatsapp ? escapar(c.whatsapp) + " · " : ""}desde ${new Date(c.alta).toLocaleDateString("es-AR")}${c.descuento ? ` · <b>${textoPorcentaje(c.descuento)} de descuento extra</b>` : ""}</span>
             </div>
             <div class="fila-cliente__acciones">
+                <button class="boton boton--borde" type="button" data-accion="descuento">Descuento</button>
                 <button class="boton boton--borde" type="button" data-accion="copiar">Copiar link</button>
                 <button class="boton boton--verde" type="button" data-accion="whatsapp">Enviar por WhatsApp</button>
                 <button class="boton boton--peligro-suave" type="button" data-accion="baja">Dar de baja</button>
@@ -829,11 +830,22 @@ function dibujarClientes() {
         </div>`).join("");
 }
 
+// Descuento extra de un cliente fijo: porcentaje sobre el precio fijo, de 0 a 50.
+function leerDescuento(texto) {
+    const valor = Number(String(texto ?? "").replace(",", ".").replace("%", "").trim() || 0);
+    if (!Number.isFinite(valor) || valor < 0 || valor > 50) return null;
+    return Math.round(valor * 10) / 10;
+}
+const textoPorcentaje = (n) => `${String(n).replace(".", ",")}%`;
+
 async function publicarClientes(mensaje) {
-    const publicos = await Promise.all(clientes.map(async (c) => ({
-        h: await Cifrado.huella(c.codigo),
-        n: await Cifrado.cifrar(await Cifrado.claveDeCodigo(c.codigo), c.nombre),
-    })));
+    // El descuento va cifrado con el código del link, igual que el nombre: solo lo lee ese cliente.
+    const publicos = await Promise.all(clientes.map(async (c) => {
+        const clave = await Cifrado.claveDeCodigo(c.codigo);
+        const publico = { h: await Cifrado.huella(c.codigo), n: await Cifrado.cifrar(clave, c.nombre) };
+        if (c.descuento) publico.d = await Cifrado.cifrar(clave, c.descuento);
+        return publico;
+    }));
     const contenido = { clientes: publicos, privado: await Cifrado.cifrar(sesion.claveDatos, clientes) };
     const sha = await Almacen.escribir(RUTA_CLIENTES, contenido, archivoClientes.sha, mensaje);
     archivoClientes = { contenido, sha };
@@ -845,6 +857,8 @@ function mensajeWhatsApp(c) {
 
 $("#form-cliente").addEventListener("submit", (e) => {
     e.preventDefault();
+    const descuento = leerDescuento($("#cliente-descuento").value);
+    if (descuento === null) return avisar("El descuento extra tiene que ser un número entre 0 y 50.", "error");
     ocupado(e.submitter, async () => {
         const cliente = {
             id: Cifrado.alAzar(8),
@@ -852,6 +866,7 @@ $("#form-cliente").addEventListener("submit", (e) => {
             whatsapp: $("#cliente-whatsapp").value.trim(),
             codigo: Cifrado.alAzar(12),
             alta: new Date().toISOString(),
+            descuento,
         };
         clientes.push(cliente);
         try {
@@ -882,6 +897,26 @@ $("#lista-clientes").addEventListener("click", async (e) => {
     } else if (accion === "whatsapp") {
         const numero = soloNumeros(cliente.whatsapp);
         window.open(`https://wa.me/${numero}?text=${encodeURIComponent(mensajeWhatsApp(cliente))}`, "_blank", "noopener");
+    } else if (accion === "descuento") {
+        const escrito = prompt(`Descuento extra para ${cliente.nombre}, en % sobre el precio fijo (0 = sin descuento extra):`, cliente.descuento || 0);
+        if (escrito === null) return;
+        const descuento = leerDescuento(escrito);
+        if (descuento === null) return avisar("El descuento extra tiene que ser un número entre 0 y 50.", "error");
+        if (descuento === (cliente.descuento || 0)) return;
+        await ocupado(boton, async () => {
+            const anterior = cliente.descuento;
+            cliente.descuento = descuento;
+            try {
+                await publicarClientes("Panel: descuento de cliente fijo");
+            } catch (error) {
+                cliente.descuento = anterior;
+                throw error;
+            }
+            dibujarClientes();
+            avisar(descuento
+                ? `${cliente.nombre} ahora tiene ${textoPorcentaje(descuento)} de descuento extra${MODO_PRUEBA ? "" : " (se ve en 1 o 2 minutos)"}.`
+                : `${cliente.nombre} ya no tiene descuento extra.`);
+        });
     } else if (accion === "baja") {
         if (!confirm(`¿Dar de baja a ${cliente.nombre}? Su link deja de funcionar y vuelve a ver precios de lista.`)) return;
         await ocupado(boton, async () => {

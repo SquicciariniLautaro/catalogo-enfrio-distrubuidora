@@ -9,6 +9,7 @@ const estado = {
     venta: "empaquetado",
     cliente: "nuevo",       // pasa a "fijo" solo si entra con un link personal válido
     nombreCliente: "",
+    descuento: 0,           // % extra sobre el precio fijo, solo para ese cliente
     linkVencido: false,
     categoria: null,
     busqueda: "",
@@ -96,7 +97,9 @@ async function identificarCliente() {
             return;
         }
         estado.cliente = "fijo";
-        estado.nombreCliente = await Cifrado.descifrar(await Cifrado.claveDeCodigo(codigo), entrada.n);
+        const clave = await Cifrado.claveDeCodigo(codigo);
+        estado.nombreCliente = await Cifrado.descifrar(clave, entrada.n);
+        if (entrada.d) estado.descuento = Number(await Cifrado.descifrar(clave, entrada.d)) || 0;
     } catch (error) {
         console.error("No se pudo verificar el cliente:", error);
     }
@@ -104,8 +107,12 @@ async function identificarCliente() {
 
 // ---------- Precios ----------
 function precioDe(producto, cliente = estado.cliente) {
-    return producto.precio[cliente];
+    const precio = producto.precio[cliente];
+    if (!precio || cliente !== "fijo" || !estado.descuento) return precio;
+    return Math.round(precio * (1 - estado.descuento / 100));
 }
+
+const textoDescuento = () => (estado.descuento ? `${String(estado.descuento).replace(".", ",")}% de descuento extra` : "");
 
 // Lo que cuesta una "unidad de pedido" (una unidad, una caja, o un kilo si va al peso).
 function precioPorPedido(producto) {
@@ -260,7 +267,7 @@ function dibujarAviso() {
     const tilde = '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg>';
     elAviso.classList.toggle("aviso-precios--fijo", estado.cliente === "fijo");
     if (estado.cliente === "fijo") {
-        elAviso.innerHTML = `${tilde}<span>Hola${estado.nombreCliente ? ", <b>" + escapar(estado.nombreCliente) + "</b>" : ""}. Estás viendo tus <b>precios de cliente fijo</b>.
+        elAviso.innerHTML = `${tilde}<span>Hola${estado.nombreCliente ? ", <b>" + escapar(estado.nombreCliente) + "</b>" : ""}. Estás viendo tus <b>precios de cliente fijo</b>${estado.descuento ? `, con tu <b>${textoDescuento()}</b>` : ""}.
             <button type="button" class="aviso-precios__salir" id="boton-salir-cliente">¿No sos vos? Salir</button></span>`;
     } else if (estado.linkVencido) {
         elAviso.innerHTML = `${info}<span>Tu link de cliente fijo ya no está activo, así que ves los precios de lista. Escribinos por WhatsApp y te pasamos uno nuevo.</span>`;
@@ -448,7 +455,7 @@ function enviarPedido() {
     mensaje += `\n*Datos*\n• Nombre: ${d.nombre}\n• Teléfono: ${d.telefono}\n`;
     if (d.comercio) mensaje += `• Comercio: ${d.comercio}\n`;
     mensaje += estado.cliente === "fijo"
-        ? `• Cliente fijo: ${estado.nombreCliente}\n`
+        ? `• Cliente fijo: ${estado.nombreCliente}${estado.descuento ? ` (${textoDescuento()})` : ""}\n`
         : `• Precios: de lista (cliente nuevo)\n`;
 
     mensaje += `\n*Entrega*\n`;
@@ -489,7 +496,9 @@ function prepararImpresion() {
         const precio = !p.hayStock ? "Sin stock" : precioDe(p) ? pesos(precioDe(p)) : "Consultar";
         return `<tr><td>${escapar(p.nombre)}</td><td>${escapar(p.marca)}</td><td>${escapar(p.presentacion.join(" · "))}</td><td>${NOMBRE_UNIDAD[p.unidad] || ""}</td><td class="num">${precio}</td></tr>`;
     };
-    const tipo = estado.cliente === "fijo" ? `Cliente fijo: ${escapar(estado.nombreCliente)}` : "Precios de lista";
+    const tipo = estado.cliente === "fijo"
+        ? `Cliente fijo: ${escapar(estado.nombreCliente)}${estado.descuento ? ` · ${textoDescuento()}` : ""}`
+        : "Precios de lista";
     $("#impresion").innerHTML = `
         <div class="impresion__cabecera">
             <div>
@@ -571,6 +580,7 @@ elAviso.addEventListener("click", (e) => {
     guardar("codigo", null);
     estado.cliente = "nuevo";
     estado.nombreCliente = "";
+    estado.descuento = 0;
     dibujarProductos();
     dibujarAviso();
     dibujarPedido();
