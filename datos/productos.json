@@ -2,6 +2,246 @@
  "actualizado": "Octubre 2026",
  "productos": [
   {
+   "id": "may-emp-anillas-de-calamar-300g",
+   "canal": "mayorista",
+   "venta": "empaquetado",
+   "categoria": "Pescados y mariscos",
+   "marca": "SUPERBE",
+   "producto": "ANILLAS DE CALAMAR 300G",
+   "presentacion": "CAJA X 30UND",
+   "unidad": "caja",
+   "kilos_caja": null,
+   "precio_nuevo": null,
+   "precio_fijo": null,
+   "stock": true,
+   "imagen": ""
+  },
+  {
+   "id": "may-emp-salmon-ahumado-rebanado-200g",
+   "canal": "mayorista",
+   "venta": "empaquetado",
+   "categoria": "Pescados y mariscos",
+   "marca": "SUPERBE",
+   "producto": "SALMON AHUMADO REBANADO 200G",
+   "presentacion": "CAJA X 20UND",
+   "unidad": "caja",
+   "kilos_caja": null,
+   "precio_nuevo": null,
+   "precio_fijo": null,
+   "stock": true,
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793205252/lwxr9leo1cv7rlmywnaj.jpg"
+  },
+  {
+   "id": "may-emp-superbe-mix-frutos-de-mar-400g",
+   "canal": "mayorista",
+   "venta": "empaquetado",
+   "categoria": "Pescados y mariscos",
+   "marca": "SUPERBE",
+   "producto": "SUPERBE MIX FRUTOS DE MAR 400G",
+   "presentacion": "CAJA X 22UND",
+   "unidad": "caja",
+   "kilos_caja": null,
+   "precio_nuevo": null,
+   "precio_fijo": null,
+   "stock": true,
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793205174/mger7nn7jta9fxbnz3cp.jpg"
+  },
+  {
+   "id": "may-emp-mejillones-pelados-cocidos-250g",
+   "canal": "mayorista",
+   "venta": "empaquetado",
+   "categoria": "Pescados y mariscos",
+   "marca": "SUPERBE",
+   "producto": "MEJILLONES PELADOS COCIDOS 250G",
+   "presentacion": "CAJA X 30UND",
+   "unidad": "caja",
+   "kilos_caja": null,
+   "precio_nuevo": null,
+   "precio_fijo": null,
+   "stock": true,
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793204901/jmbpmtxk29wnqftmlr2l.jpg"
+  },
+  {
+   "id": "may-emp-medallon-de-salmon-rebozados-4u-400g",
+   "canal": "mayorista",
+   "venta": "empaquetado",
+   "categoria": "Pescados y mariscos",
+   "marca": "SUPERBE",
+   "producto": "MEDALLON DE SALMON REBOZADOS 4U 400G",
+   "presentacion": "CAJA X 24UND",
+   "unidad": "caja",
+   "kilos_caja": null,
+   "precio_nuevo": null,
+   "precio_fijo": null,
+   "stock": true,
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793204817/bk2jh56clipc9alyvqeo.jpg"
+  },
+  {
+   "id": "may-emp-medallon-de-salmon-200g-2u",
+   "canal": "mayorista",
+   "venta": "empaquetado",
+   "categoria": "Pescados y mariscos",
+   "marca": "SUPERBE",
+   "producto": "MEDALLON DE SALMON 200G 2U",
+   "presentacion": "CAJA X 25UND",
+   "unidad": "caja",
+   "kilos_caja": null,
+   "precio_nuevo": null,
+   "precio_fijo": null,
+   "stock": true,
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793202787/nimtqvy9nwqlr6gwfl83.jpg"
+  },
+  {
+   "id": "may-emp-langostinos-pelados-crudos-250g",
+   "canal": "mayorista",
+   "venta": "empaquetado",
+   "categoria": "Pescados y mariscos",
+   "marca": "SUPERBE",
+   "producto": "LANGOSTINOS PELADOS CRUDOS 250G",
+   "presentacion": "CAJA X 30UND",
+   "unidad": "caja",
+   "kilos_caja": null,
+   "precio_nuevo": null,
+   "precio_fijo": null,
+   "stock": true,
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793202728/fb0npdmysm3z5p5vlzsr.jpg"
+  },
+  {
+   "id": "may-emp-superbe-camarones-pelados-cocidos-250g",
+   "canal": "mayorista",
+   "venta": "empaquetado",
+   "categoria": "Pescados y mariscos",
+   "marca": "SUPERBE",
+   "producto": "CAMARONES PELADOS COCIDOS 250G",
+   "presentacion": "CAJA X 30UND",
+   "unidad": "caja",
+   "kilos_caja": null,
+   "precio_nuevo": null,
+   "precio_fijo": null,
+   "stock": true,
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793202682/q7qsvvarobetaqxxkfvt.jpg"
+  },
+  {
+   "id": "may-emp-quem-porcion-de-salmon-despinado-200g",
+   "canal": "mayorista",
+   "venta": "empaquetado",
+   "categoria": "Pescados y mariscos",
+   "marca": "SUPERBE",
+   "producto": "PORCION DE SALMON DESPINADO 200G",
+   "presentacion": "CAJA X 20UND",
+   "unidad": "caja",
+   "kilos_caja": null,
+   "precio_nuevo": null,
+   "precio_fijo": null,
+   "stock": true,
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793202619/pwk2f9us3toiwk7ca0rj.webp"
+  },
+  {
+   "id": "may-emp-filet-de-merluza-crocante-finas-hierbas-500g",
+   "canal": "mayorista",
+   "venta": "empaquetado",
+   "categoria": "Pescados y mariscos",
+   "marca": "ARTICO",
+   "producto": "FILET DE MERLUZA CROCANTE FINAS HIERBAS  500G",
+   "presentacion": "CAJA X 20UND",
+   "unidad": "caja",
+   "kilos_caja": null,
+   "precio_nuevo": null,
+   "precio_fijo": null,
+   "stock": true,
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793202585/dafynwvvql5qqepwhavx.jpg"
+  },
+  {
+   "id": "may-emp-barrita-de-merluza-crocante-300g",
+   "canal": "mayorista",
+   "venta": "empaquetado",
+   "categoria": "Pescados y mariscos",
+   "marca": "ARTICO",
+   "producto": "BARRITA DE MERLUZA CROCANTE  300G",
+   "presentacion": "CAJA X 20UND",
+   "unidad": "caja",
+   "kilos_caja": null,
+   "precio_nuevo": null,
+   "precio_fijo": null,
+   "stock": true,
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793202549/z70kqxcxosjp975j4usn.jpg"
+  },
+  {
+   "id": "may-emp-rabas-300gr",
+   "canal": "mayorista",
+   "venta": "empaquetado",
+   "categoria": "Pescados y mariscos",
+   "marca": "ARTICO",
+   "producto": "RABAS  300GR",
+   "presentacion": "CAJA X 25UND",
+   "unidad": "caja",
+   "kilos_caja": null,
+   "precio_nuevo": null,
+   "precio_fijo": null,
+   "stock": true,
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793202475/xsigb8sowupbmgwkgiaf.jpg"
+  },
+  {
+   "id": "may-emp-filet-merluza-a-la-romana-500gr",
+   "canal": "mayorista",
+   "venta": "empaquetado",
+   "categoria": "Pescados y mariscos",
+   "marca": "ARTICO",
+   "producto": "FILET MERLUZA A LA ROMANA  500GR",
+   "presentacion": "CAJA X 25UND",
+   "unidad": "caja",
+   "kilos_caja": null,
+   "precio_nuevo": null,
+   "precio_fijo": null,
+   "stock": true,
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793202392/a6qahjy9kslmedo55yrm.jpg"
+  },
+  {
+   "id": "may-emp-paella-400gr",
+   "canal": "mayorista",
+   "venta": "empaquetado",
+   "categoria": "Pescados y mariscos",
+   "marca": "ARTICO",
+   "producto": "PAELLA  400GR",
+   "presentacion": "CAJA X 20UND",
+   "unidad": "caja",
+   "kilos_caja": null,
+   "precio_nuevo": null,
+   "precio_fijo": null,
+   "stock": true,
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793202245/exjczpbhwihcktdmfeqr.jpg"
+  },
+  {
+   "id": "may-emp-milanesa-merluza-400gr",
+   "canal": "mayorista",
+   "venta": "empaquetado",
+   "categoria": "Pescados y mariscos",
+   "marca": "ARTICO",
+   "producto": "MILANESA MERLUZA - 400GR",
+   "presentacion": "CAJA X 18 UND",
+   "unidad": "unidad",
+   "kilos_caja": null,
+   "precio_nuevo": null,
+   "precio_fijo": null,
+   "stock": true,
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793138858/gp2tmozyjdbozsuhqj4q.jpg"
+  },
+  {
+   "id": "may-emp-filet-merluza-400gr",
+   "canal": "mayorista",
+   "venta": "empaquetado",
+   "categoria": "Pescados y mariscos",
+   "marca": "ARTICO",
+   "producto": "FILET MERLUZA - 400GR",
+   "presentacion": "CAJA X 20UND",
+   "unidad": "unidad",
+   "kilos_caja": null,
+   "precio_nuevo": null,
+   "precio_fijo": null,
+   "stock": true,
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793138761/cusblwd9pd77vpjoxaja.jpg"
+  },
+  {
    "id": "min-emp-filet-de-merluza",
    "canal": "minorista",
    "venta": "empaquetado",
@@ -15,36 +255,6 @@
    "precio_fijo": 7019,
    "stock": true,
    "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793116898/bbduenbpdptjddciw21g.jpg"
-  },
-  {
-   "id": "min-emp-milanesa-de-merluza",
-   "canal": "minorista",
-   "venta": "empaquetado",
-   "categoria": "Pescados y mariscos",
-   "marca": "Ártico",
-   "producto": "Milanesa de Merluza",
-   "presentacion": "500 g",
-   "unidad": "unidad",
-   "kilos_caja": null,
-   "precio_nuevo": 7680,
-   "precio_fijo": 7450,
-   "stock": true,
-   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793116768/MILANESA_DE_MERLUZA.jpg"
-  },
-  {
-   "id": "min-emp-medallon-de-merluza",
-   "canal": "minorista",
-   "venta": "empaquetado",
-   "categoria": "Pescados y mariscos",
-   "marca": "Ártico",
-   "producto": "Medallón de Merluza",
-   "presentacion": "150 g",
-   "unidad": "unidad",
-   "kilos_caja": null,
-   "precio_nuevo": 1105,
-   "precio_fijo": 1072,
-   "stock": true,
-   "imagen": ""
   },
   {
    "id": "min-emp-medallon-de-merluza-2",
@@ -74,7 +284,7 @@
    "precio_nuevo": 7535,
    "precio_fijo": 7158,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793118530/ndtgg0eabcryc7wa0e4l.jpg"
   },
   {
    "id": "min-emp-filet-merluza-a-la-romana",
@@ -89,7 +299,7 @@
    "precio_nuevo": 7844,
    "precio_fijo": 7452,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793118864/zmpqerqa0tgkph7gdzr0.jpg"
   },
   {
    "id": "min-emp-rabas",
@@ -104,7 +314,7 @@
    "precio_nuevo": 9851,
    "precio_fijo": 9555,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793118876/flw6sple05d0fcmemf0s.jpg"
   },
   {
    "id": "min-emp-barrita-de-merluza-crocante",
@@ -149,7 +359,7 @@
    "precio_nuevo": 17250,
    "precio_fijo": 16388,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793119576/lv76hzj6klqdtcy3d8yt.webp"
   },
   {
    "id": "min-emp-camarones-pelados-cocidos",
@@ -164,7 +374,7 @@
    "precio_nuevo": 7256,
    "precio_fijo": 6893,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793119588/z7lswzs9i1u39yklxpzh.jpg"
   },
   {
    "id": "min-emp-langostinos-pelados-crudos",
@@ -179,7 +389,7 @@
    "precio_nuevo": 8051,
    "precio_fijo": 7648,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793119748/jkmfamikbsufgfpol9yw.jpg"
   },
   {
    "id": "min-emp-medallon-de-salmon",
@@ -194,7 +404,7 @@
    "precio_nuevo": 5880,
    "precio_fijo": 5586,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793119821/smvmhcwcufabvsab15fx.jpg"
   },
   {
    "id": "min-emp-medallon-de-salmon-rebozados",
@@ -209,7 +419,7 @@
    "precio_nuevo": 3859,
    "precio_fijo": 3666,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793119890/kzrmbanv7gpoxglsrjet.jpg"
   },
   {
    "id": "min-emp-mejillones-pelados-cocidos",
@@ -224,7 +434,7 @@
    "precio_nuevo": 8739,
    "precio_fijo": 8302,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793119964/vwfvscyfiqms4fi5awaz.jpg"
   },
   {
    "id": "min-emp-mix-frutos-de-mar",
@@ -239,7 +449,7 @@
    "precio_nuevo": 11482,
    "precio_fijo": 10908,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793120015/dbbera2ox5yjegadsrss.jpg"
   },
   {
    "id": "min-emp-salmon-ahumado-rebanado",
@@ -254,7 +464,7 @@
    "precio_nuevo": 15434,
    "precio_fijo": 14662,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793120075/rer2z66vatllvqztylf0.jpg"
   },
   {
    "id": "min-emp-medallon-de-pollo-con-espinaca",
@@ -269,7 +479,7 @@
    "precio_nuevo": 6601,
    "precio_fijo": 6271,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793120167/qrxgllmr6wpxz0exd6oq.jpg"
   },
   {
    "id": "min-emp-medallon-de-pollo-con-jamon-y-queso",
@@ -284,7 +494,7 @@
    "precio_nuevo": 7878,
    "precio_fijo": 7484,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793120227/fnx5nivthsj0qnwt0o6c.jpg"
   },
   {
    "id": "min-emp-medallones-de-pollo",
@@ -299,7 +509,7 @@
    "precio_nuevo": 3190,
    "precio_fijo": 3030,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793120285/lx2fdxufcukepnlrsi6j.jpg"
   },
   {
    "id": "min-emp-nuggets-de-pollo-crocantes",
@@ -314,7 +524,7 @@
    "precio_nuevo": 3810,
    "precio_fijo": 3619,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793120380/ko4b6a4vtzujrokmw8zx.jpg"
   },
   {
    "id": "min-emp-patitas-de-pollo",
@@ -329,7 +539,7 @@
    "precio_nuevo": 3287,
    "precio_fijo": 3123,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793120444/sqw0s9k98lhkjubarvnk.jpg"
   },
   {
    "id": "min-emp-tiritas-de-pollo",
@@ -344,7 +554,7 @@
    "precio_nuevo": 3811,
    "precio_fijo": 3621,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793120512/sozzyznptj7cyxvkby5e.jpg"
   },
   {
    "id": "min-emp-crujiente-de-pollo",
@@ -374,7 +584,7 @@
    "precio_nuevo": 4089,
    "precio_fijo": 3966,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793120642/pfybfb76jyt0ao4xbtij.jpg"
   },
   {
    "id": "min-emp-mini-croquetas-jamon-y-queso",
@@ -389,7 +599,7 @@
    "precio_nuevo": 3002,
    "precio_fijo": 2852,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793120711/xayenhkdryqexwsz1jlv.jpg"
   },
   {
    "id": "min-emp-minicroquetas-de-espinaca-y-queso",
@@ -404,7 +614,7 @@
    "precio_nuevo": 3002,
    "precio_fijo": 2852,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793120800/jjdowsgaeggtqatwiky5.jpg"
   },
   {
    "id": "min-emp-veggie-burger-0-carne",
@@ -464,7 +674,7 @@
    "precio_nuevo": 4567,
    "precio_fijo": 4339,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793121227/ywizvdwiplr9lxrzvu1c.jpg"
   },
   {
    "id": "min-emp-medallon-garbanzos-al-curry",
@@ -479,7 +689,7 @@
    "precio_nuevo": 4567,
    "precio_fijo": 4339,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793121296/x7w1ttig8t9v5ldjzhyf.jpg"
   },
   {
    "id": "min-emp-medallon-green-moon",
@@ -494,7 +704,7 @@
    "precio_nuevo": 4567,
    "precio_fijo": 4339,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793121413/yvktd0c6hdcxceajvyyo.jpg"
   },
   {
    "id": "min-emp-medallon-lentejon-canadiense",
@@ -509,7 +719,7 @@
    "precio_nuevo": 4567,
    "precio_fijo": 4339,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793133684/yhqmdoi85zkdw4zkntge.jpg"
   },
   {
    "id": "min-emp-medallon-quinoa-andina",
@@ -524,7 +734,7 @@
    "precio_nuevo": 4567,
    "precio_fijo": 4339,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793133751/kz7p0lktiqstyigq9fdv.jpg"
   },
   {
    "id": "min-emp-medallon-quinoa-mediterranea",
@@ -539,7 +749,7 @@
    "precio_nuevo": 4567,
    "precio_fijo": 4339,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793133834/wunv6d1buomqadumaibu.jpg"
   },
   {
    "id": "min-emp-medallon-quinoa-sin-sal",
@@ -569,7 +779,7 @@
    "precio_nuevo": 5419,
    "precio_fijo": 5148,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793133988/r40aliockmqelo9xpyag.jpg"
   },
   {
    "id": "min-emp-toques-de-lentejas",
@@ -584,7 +794,7 @@
    "precio_nuevo": 5419,
    "precio_fijo": 5148,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793134048/zztr1lxmsuv6iceff2ow.jpg"
   },
   {
    "id": "min-emp-toques-thai",
@@ -599,7 +809,7 @@
    "precio_nuevo": 5419,
    "precio_fijo": 5148,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793134128/tthxbnskyukzfgcwpvb2.jpg"
   },
   {
    "id": "min-emp-toques-tikka-spicy",
@@ -614,7 +824,7 @@
    "precio_nuevo": 5419,
    "precio_fijo": 5148,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793134185/qn2rz5u8colprdjgdblf.jpg"
   },
   {
    "id": "min-emp-tofu-clasico",
@@ -733,7 +943,7 @@
    "kilos_caja": null,
    "precio_nuevo": 8700,
    "precio_fijo": 8265,
-   "stock": true,
+   "stock": false,
    "imagen": ""
   },
   {
@@ -749,7 +959,7 @@
    "precio_nuevo": 1700,
    "precio_fijo": 1615,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793134847/wtzpwmbjvk0v9uzu0bhx.jpg"
   },
   {
    "id": "min-emp-papas-baston-tradicional-2",
@@ -764,7 +974,7 @@
    "precio_nuevo": 2720,
    "precio_fijo": 2584,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793134911/fnb0ipkex8kutlyv4420.jpg"
   },
   {
    "id": "min-emp-papas-cubo",
@@ -779,7 +989,7 @@
    "precio_nuevo": 2650,
    "precio_fijo": 2518,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793134987/kvwtzqol7btmgdvpmf07.jpg"
   },
   {
    "id": "min-emp-papas-ondeadas",
@@ -794,292 +1004,7 @@
    "precio_nuevo": 2720,
    "precio_fijo": 2584,
    "stock": true,
-   "imagen": ""
-  },
-  {
-   "id": "min-emp-noquis-de-espinaca",
-   "canal": "minorista",
-   "venta": "empaquetado",
-   "categoria": "Pastas",
-   "marca": "Caseriana",
-   "producto": "Ñoquis de Espinaca",
-   "presentacion": "500 g",
-   "unidad": "unidad",
-   "kilos_caja": null,
-   "precio_nuevo": 3900,
-   "precio_fijo": 3705,
-   "stock": true,
-   "imagen": ""
-  },
-  {
-   "id": "min-emp-noquis-de-papa",
-   "canal": "minorista",
-   "venta": "empaquetado",
-   "categoria": "Pastas",
-   "marca": "Caseriana",
-   "producto": "Ñoquis de Papa",
-   "presentacion": "500 g",
-   "unidad": "unidad",
-   "kilos_caja": null,
-   "precio_nuevo": 3900,
-   "precio_fijo": 3705,
-   "stock": true,
-   "imagen": ""
-  },
-  {
-   "id": "min-emp-sorrentinos-de-jamon-y-queso",
-   "canal": "minorista",
-   "venta": "empaquetado",
-   "categoria": "Pastas",
-   "marca": "Caseriana",
-   "producto": "Sorrentinos de Jamón y Queso",
-   "presentacion": "500 g",
-   "unidad": "unidad",
-   "kilos_caja": null,
-   "precio_nuevo": 6840,
-   "precio_fijo": 6498,
-   "stock": true,
-   "imagen": ""
-  },
-  {
-   "id": "min-emp-ravioles-de-calabaza",
-   "canal": "minorista",
-   "venta": "empaquetado",
-   "categoria": "Pastas",
-   "marca": "Caseriana",
-   "producto": "Ravioles de Calabaza",
-   "presentacion": "500 g",
-   "unidad": "unidad",
-   "kilos_caja": null,
-   "precio_nuevo": 3509,
-   "precio_fijo": 3334,
-   "stock": true,
-   "imagen": ""
-  },
-  {
-   "id": "min-emp-ravioles-de-ricota-y-maiz",
-   "canal": "minorista",
-   "venta": "empaquetado",
-   "categoria": "Pastas",
-   "marca": "Caseriana",
-   "producto": "Ravioles de Ricota y Maíz",
-   "presentacion": "500 g",
-   "unidad": "unidad",
-   "kilos_caja": null,
-   "precio_nuevo": 3509,
-   "precio_fijo": 3334,
-   "stock": true,
-   "imagen": ""
-  },
-  {
-   "id": "min-emp-raviolones-de-espinaca-y-mozzarella",
-   "canal": "minorista",
-   "venta": "empaquetado",
-   "categoria": "Pastas",
-   "marca": "Caseriana",
-   "producto": "Raviolones de Espinaca y Mozzarella",
-   "presentacion": "500 g",
-   "unidad": "unidad",
-   "kilos_caja": null,
-   "precio_nuevo": 5026,
-   "precio_fijo": 4774,
-   "stock": true,
-   "imagen": ""
-  },
-  {
-   "id": "min-emp-sorrentinos-calabaza-muzzarella-y-nuez",
-   "canal": "minorista",
-   "venta": "empaquetado",
-   "categoria": "Pastas",
-   "marca": "",
-   "producto": "Sorrentinos Calabaza, Muzzarella y Nuez",
-   "presentacion": "12 u.",
-   "unidad": "unidad",
-   "kilos_caja": null,
-   "precio_nuevo": 7800,
-   "precio_fijo": 7410,
-   "stock": true,
-   "imagen": ""
-  },
-  {
-   "id": "min-emp-sorrentinos-de-espinaca-pollo-y-ricota",
-   "canal": "minorista",
-   "venta": "empaquetado",
-   "categoria": "Pastas",
-   "marca": "",
-   "producto": "Sorrentinos de Espinaca, Pollo y Ricota",
-   "presentacion": "12 u.",
-   "unidad": "unidad",
-   "kilos_caja": null,
-   "precio_nuevo": 7800,
-   "precio_fijo": 7410,
-   "stock": true,
-   "imagen": ""
-  },
-  {
-   "id": "min-emp-sorrentinos-de-jamon-y-muzzarella",
-   "canal": "minorista",
-   "venta": "empaquetado",
-   "categoria": "Pastas",
-   "marca": "",
-   "producto": "Sorrentinos de Jamón y Muzzarella",
-   "presentacion": "12 u.",
-   "unidad": "unidad",
-   "kilos_caja": null,
-   "precio_nuevo": 7800,
-   "precio_fijo": 7410,
-   "stock": true,
-   "imagen": ""
-  },
-  {
-   "id": "min-emp-sorrentinos-de-salmon-y-muzzarella",
-   "canal": "minorista",
-   "venta": "empaquetado",
-   "categoria": "Pastas",
-   "marca": "",
-   "producto": "Sorrentinos de Salmón y Muzzarella",
-   "presentacion": "12 u.",
-   "unidad": "unidad",
-   "kilos_caja": null,
-   "precio_nuevo": 10000,
-   "precio_fijo": 9500,
-   "stock": true,
-   "imagen": ""
-  },
-  {
-   "id": "min-emp-sorrentinos-ternera-y-muzzarella",
-   "canal": "minorista",
-   "venta": "empaquetado",
-   "categoria": "Pastas",
-   "marca": "",
-   "producto": "Sorrentinos Ternera y Muzzarella",
-   "presentacion": "12 u.",
-   "unidad": "unidad",
-   "kilos_caja": null,
-   "precio_nuevo": 7800,
-   "precio_fijo": 7410,
-   "stock": true,
-   "imagen": ""
-  },
-  {
-   "id": "min-emp-canelones-de-choclo",
-   "canal": "minorista",
-   "venta": "empaquetado",
-   "categoria": "Pastas",
-   "marca": "",
-   "producto": "Canelones de Choclo",
-   "presentacion": "2 u.",
-   "unidad": "unidad",
-   "kilos_caja": null,
-   "precio_nuevo": 6100,
-   "precio_fijo": 5795,
-   "stock": true,
-   "imagen": ""
-  },
-  {
-   "id": "min-emp-canelones-de-verdura",
-   "canal": "minorista",
-   "venta": "empaquetado",
-   "categoria": "Pastas",
-   "marca": "",
-   "producto": "Canelones de Verdura",
-   "presentacion": "2 u.",
-   "unidad": "unidad",
-   "kilos_caja": null,
-   "precio_nuevo": 6100,
-   "precio_fijo": 5795,
-   "stock": true,
-   "imagen": ""
-  },
-  {
-   "id": "min-emp-tarta-de-espinaca-y-queso",
-   "canal": "minorista",
-   "venta": "empaquetado",
-   "categoria": "Tartas",
-   "marca": "All Frozen",
-   "producto": "Tarta de Espinaca y Queso",
-   "presentacion": "500 g",
-   "unidad": "unidad",
-   "kilos_caja": null,
-   "precio_nuevo": 7050,
-   "precio_fijo": 6698,
-   "stock": true,
-   "imagen": ""
-  },
-  {
-   "id": "min-emp-tarta-de-jamon-y-muzzarella",
-   "canal": "minorista",
-   "venta": "empaquetado",
-   "categoria": "Tartas",
-   "marca": "All Frozen",
-   "producto": "Tarta de Jamón y Muzzarella",
-   "presentacion": "500 g",
-   "unidad": "unidad",
-   "kilos_caja": null,
-   "precio_nuevo": 9200,
-   "precio_fijo": 8740,
-   "stock": true,
-   "imagen": ""
-  },
-  {
-   "id": "min-emp-tarta-de-pollo-y-puerro",
-   "canal": "minorista",
-   "venta": "empaquetado",
-   "categoria": "Tartas",
-   "marca": "All Frozen",
-   "producto": "Tarta de Pollo y Puerro",
-   "presentacion": "500 g",
-   "unidad": "unidad",
-   "kilos_caja": null,
-   "precio_nuevo": 9200,
-   "precio_fijo": 8740,
-   "stock": true,
-   "imagen": ""
-  },
-  {
-   "id": "min-emp-tarta-de-super-pollo",
-   "canal": "minorista",
-   "venta": "empaquetado",
-   "categoria": "Tartas",
-   "marca": "All Frozen",
-   "producto": "Tarta de Super Pollo",
-   "presentacion": "500 g",
-   "unidad": "unidad",
-   "kilos_caja": null,
-   "precio_nuevo": 9200,
-   "precio_fijo": 8740,
-   "stock": true,
-   "imagen": ""
-  },
-  {
-   "id": "min-emp-tarta-de-verdura",
-   "canal": "minorista",
-   "venta": "empaquetado",
-   "categoria": "Tartas",
-   "marca": "All Frozen",
-   "producto": "Tarta de Verdura",
-   "presentacion": "500 g",
-   "unidad": "unidad",
-   "kilos_caja": null,
-   "precio_nuevo": 7050,
-   "precio_fijo": 6698,
-   "stock": true,
-   "imagen": ""
-  },
-  {
-   "id": "min-emp-tarta-de-calabaza-y-queso",
-   "canal": "minorista",
-   "venta": "empaquetado",
-   "categoria": "Tartas",
-   "marca": "All Frozen",
-   "producto": "Tarta de Calabaza y Queso",
-   "presentacion": "500 g",
-   "unidad": "unidad",
-   "kilos_caja": null,
-   "precio_nuevo": 7050,
-   "precio_fijo": 6698,
-   "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793135055/zrbkehila6mvdwx4n0ok.jpg"
   },
   {
    "id": "min-emp-budin-de-cacao-y-nuez",
@@ -1094,7 +1019,7 @@
    "precio_nuevo": 12000,
    "precio_fijo": 11400,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793135201/xuoxzwaj3xbaylu0vb1l.jpg"
   },
   {
    "id": "min-emp-budin-de-mandarina",
@@ -1124,7 +1049,7 @@
    "precio_nuevo": 12000,
    "precio_fijo": 11400,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793135602/ppafj2dordzugd7hpzmt.jpg"
   },
   {
    "id": "min-emp-budin-de-zanahoria",
@@ -1139,7 +1064,7 @@
    "precio_nuevo": 12000,
    "precio_fijo": 11400,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793135702/scqisrnm70slt0vypjar.jpg"
   },
   {
    "id": "min-emp-fideos-cinta-al-huevo",
@@ -1154,7 +1079,7 @@
    "precio_nuevo": 6000,
    "precio_fijo": 5700,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793135770/eiicwatcvbxenyp8p8bl.jpg"
   },
   {
    "id": "min-emp-fideos-de-espinaca",
@@ -1244,7 +1169,7 @@
    "precio_nuevo": 10500,
    "precio_fijo": 9975,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793135856/ntu20if3hppacjdzhzld.jpg"
   },
   {
    "id": "min-emp-pan-de-campo",
@@ -1304,7 +1229,7 @@
    "precio_nuevo": 3000,
    "precio_fijo": 2850,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793135963/bus4cbe4p4s3z9gmvm3t.jpg"
   },
   {
    "id": "min-emp-muffins-cacao",
@@ -1364,7 +1289,7 @@
    "precio_nuevo": 7000,
    "precio_fijo": 6650,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793136021/gp1dl1zekt4ihtn8fqab.jpg"
   },
   {
    "id": "min-emp-empanadas-tucumana",
@@ -1424,7 +1349,7 @@
    "precio_nuevo": 5294,
    "precio_fijo": 5109,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793136093/jst8kefpqwp3e5qpeffv.jpg"
   },
   {
    "id": "min-emp-frutillas",
@@ -1438,8 +1363,8 @@
    "kilos_caja": null,
    "precio_nuevo": null,
    "precio_fijo": null,
-   "stock": true,
-   "imagen": ""
+   "stock": false,
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793136169/tvshxa7kitzwvynwbzsx.jpg"
   },
   {
    "id": "min-emp-mix-4-frutos-rojos",
@@ -1454,7 +1379,7 @@
    "precio_nuevo": 7639,
    "precio_fijo": 7371,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793136222/irgfgbuokp38yfkiplcr.jpg"
   },
   {
    "id": "min-emp-mix-berries",
@@ -1469,7 +1394,7 @@
    "precio_nuevo": 5320,
    "precio_fijo": 5134,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793136313/nyac4qlcsjevfyoxifma.jpg"
   },
   {
    "id": "min-emp-mix-patagonico",
@@ -1484,7 +1409,7 @@
    "precio_nuevo": 16200,
    "precio_fijo": 15633,
    "stock": true,
-   "imagen": ""
+   "imagen": "https://res.cloudinary.com/ikzhq00e/image/upload/v1793136360/vzy1qzk9lfnl3aiupeio.jpg"
   },
   {
    "id": "min-emp-mix-premium",
@@ -2803,36 +2728,6 @@
    "kilos_caja": null,
    "precio_nuevo": 5464,
    "precio_fijo": 5191,
-   "stock": true,
-   "imagen": ""
-  },
-  {
-   "id": "may-emp-exprimido-de-limon",
-   "canal": "mayorista",
-   "venta": "empaquetado",
-   "categoria": "Bebidas",
-   "marca": "",
-   "producto": "Exprimido de Limón",
-   "presentacion": "5 u. x 2 L",
-   "unidad": "caja",
-   "kilos_caja": null,
-   "precio_nuevo": 49135,
-   "precio_fijo": 46678,
-   "stock": true,
-   "imagen": ""
-  },
-  {
-   "id": "may-emp-exprimido-de-naranja",
-   "canal": "mayorista",
-   "venta": "empaquetado",
-   "categoria": "Bebidas",
-   "marca": "",
-   "producto": "Exprimido de Naranja",
-   "presentacion": "5 u. x 2 L",
-   "unidad": "caja",
-   "kilos_caja": null,
-   "precio_nuevo": 45256,
-   "precio_fijo": 42993,
    "stock": true,
    "imagen": ""
   },
@@ -5743,66 +5638,6 @@
    "kilos_caja": null,
    "precio_nuevo": 24904,
    "precio_fijo": 23659,
-   "stock": true,
-   "imagen": ""
-  },
-  {
-   "id": "may-gra-pan-hamburguesa-sesamo-mixto",
-   "canal": "mayorista",
-   "venta": "granel",
-   "categoria": "Panificados",
-   "marca": "",
-   "producto": "Pan Hamburguesa Sésamo Mixto",
-   "presentacion": "Caja x40 u.",
-   "unidad": "caja",
-   "kilos_caja": null,
-   "precio_nuevo": 23646,
-   "precio_fijo": 22464,
-   "stock": true,
-   "imagen": ""
-  },
-  {
-   "id": "may-gra-chipa-2",
-   "canal": "mayorista",
-   "venta": "granel",
-   "categoria": "Panificados",
-   "marca": "Ártico",
-   "producto": "Chipa",
-   "presentacion": "Caja 6,3 kg · 7 bolsas x 900 g",
-   "unidad": "kg",
-   "kilos_caja": 6.3,
-   "precio_nuevo": 13439,
-   "precio_fijo": 12767,
-   "stock": true,
-   "imagen": ""
-  },
-  {
-   "id": "may-gra-chipa-3",
-   "canal": "mayorista",
-   "venta": "granel",
-   "categoria": "Panificados",
-   "marca": "Ártico",
-   "producto": "Chipa",
-   "presentacion": "Caja 6 kg · 3 bolsas x 2 kg",
-   "unidad": "kg",
-   "kilos_caja": 6,
-   "precio_nuevo": 12979,
-   "precio_fijo": 12330,
-   "stock": true,
-   "imagen": ""
-  },
-  {
-   "id": "may-gra-churro-recto-congelados",
-   "canal": "mayorista",
-   "venta": "granel",
-   "categoria": "Panificados",
-   "marca": "Ártico",
-   "producto": "Churro Recto Congelados",
-   "presentacion": "Caja 4 kg · 2 bolsas x 2 kg",
-   "unidad": "kg",
-   "kilos_caja": 4,
-   "precio_nuevo": 7571,
-   "precio_fijo": 7192,
    "stock": true,
    "imagen": ""
   }
