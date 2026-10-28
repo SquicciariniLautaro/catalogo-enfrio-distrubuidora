@@ -53,18 +53,31 @@ El panel necesita una **llave de GitHub** para poder guardar. La crea Lautaro de
 3. **Repository access** → **Only select repositories** → elegir `catalogo-enfrio-distrubuidora`.
 4. **Permissions** → **Repository permissions** → **Contents** → **Read and write**. Nada más.
 5. **Generate token** y copiar la llave (empieza con `github_pat_`). GitHub la muestra una sola vez.
-6. Abrir `https://<la-dirección-de-vercel>/admin.html`, pegar la llave y elegir la contraseña del negocio.
-7. Pasarle al cliente la dirección del panel y la contraseña. La llave no se la tiene que saber nadie
-   (y no se pega en chats ni mensajes).
+6. Abrir `https://<la-dirección-de-vercel>/admin.html`, pegar la llave y elegir la contraseña del negocio
+   y la del dueño (la de Lautaro). Tienen que ser distintas.
+7. Pasarle al cliente la dirección del panel y **su** contraseña. La llave no se la tiene que saber nadie
+   (y no se pega en chats ni mensajes). Guardar la llave en un lugar seguro: es la llave maestra.
 
-Si alguna vez hay que cambiar la llave (por ejemplo si se filtró, o si se borró en GitHub y el panel
-dice "La llave de GitHub dejó de funcionar"): crear una llave nueva igual a la anterior, borrar el
-archivo `datos/acceso.json` del repositorio y volver a entrar a `admin.html`, que pide de nuevo la
-llave y la contraseña. Los productos y los clientes fijos no se pierden.
+### Acceso del dueño (Lautaro)
+Hay dos contraseñas: la del **negocio** y la del **dueño**. Con cualquiera de las dos se entra en el
+mismo lugar de "Contraseña"; con la del dueño el panel dice **Panel · Dueño** arriba.
+- El negocio puede cambiar su contraseña cuando quiera: la del dueño no se toca.
+- El dueño, en **Ajustes → Contraseña del negocio**, le puede poner una contraseña nueva al negocio
+  (por ejemplo si se la olvidó).
+- Si el dueño se olvida su contraseña: en la pantalla de ingreso, **Soy el dueño del sistema: entrar con
+  la llave de GitHub** → pegar la llave y elegir una contraseña nueva. Con la misma llave de siempre no
+  pide nada más.
+- **Cambiar la llave** (si se filtró, o si se borró en GitHub y el panel dice "La llave de GitHub dejó de
+  funcionar"): crear una llave nueva igual a la anterior y entrar con **Soy el dueño del sistema** usando
+  la llave nueva. Como es una llave distinta, pide también la contraseña del negocio: si se pone la
+  actual, queda igual; si no se sabe, se escribe una nueva y hay que pasársela al negocio. En ese último
+  caso la lista de clientes fijos se pierde (el panel avisa antes) y hay que volver a darlos de alta.
+  No hace falta borrar `datos/acceso.json`.
 
 ### Seguridad
-- La llave queda guardada **cifrada** con la contraseña (`datos/acceso.json`): sin la contraseña no
-  sirve. Por eso la contraseña tiene que ser larga (mínimo 10 caracteres; mejor una frase).
+- La llave queda guardada **cifrada** en `datos/acceso.json`, una vez con cada contraseña y otra con la
+  propia llave: sin una contraseña (o la llave) no sirve. Por eso las contraseñas tienen que ser largas
+  (mínimo 10 caracteres; mejor una frase).
 - La llave solo puede tocar este repositorio.
 - El repositorio es público: cualquiera que sepa buscar puede ver `productos.json`, incluidos los
   precios de cliente fijo. Los nombres y teléfonos de los clientes fijos **no** se pueden leer.
@@ -84,7 +97,10 @@ llave y la contraseña. Los productos y los clientes fijos no se pierden.
   cámara de hasta 50 MB. En el catálogo se muestran achicadas otra vez y en el formato más liviano. Si el perfil se borra o se renombra en Cloudinary, hay que actualizar `config.js`.
 - **Clientes fijos:** agregar (nombre y WhatsApp), copiar o mandar por WhatsApp su link personal,
   dar de baja (el link deja de funcionar).
-- **Ajustes:** cambiar la contraseña.
+- **Categorías nuevas:** en la ventana del producto, **Categoría → + Nueva categoría…**. Llevan el ícono
+  de copo de nieve y van al final del catálogo. No se guardan aparte: existen mientras algún producto
+  las use.
+- **Ajustes:** cambiar la contraseña (el dueño, además, la del negocio).
 
 ## Probar en la computadora
 

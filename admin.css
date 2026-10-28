@@ -38,7 +38,7 @@
 }
 .campo select:focus { border-color: var(--azul); }
 .ayuda { margin: 0; color: var(--texto-2); font-size: .86rem; }
-.error { margin: 12px 0 0; padding: 10px 12px; border-radius: 10px; background: #fde8e8; color: var(--rojo); font-size: .88rem; }
+.error { margin: 12px 0 0; padding: 10px 12px; border-radius: 10px; background: #fde8e8; color: #b42318; font-size: .88rem; }
 
 .interruptor { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; font-size: .86rem; }
 .interruptor input { width: 18px; height: 18px; accent-color: var(--verde); }
@@ -52,6 +52,10 @@
 .acceso__logo { height: 44px; display: block; margin: 0 auto 8px; }
 .acceso__titulo { margin: 0 0 20px; text-align: center; font-size: 1.15rem; font-weight: 600; }
 .acceso .estado { padding: 12px 0; }
+.boton-enlace {
+    padding: 6px 0; border: 0; background: none; color: var(--azul-fuerte);
+    font: inherit; font-size: .84rem; text-decoration: underline; cursor: pointer;
+}
 
 /* ---------- Encabezado del panel ---------- */
 .admin .encabezado { position: sticky; top: 0; }
