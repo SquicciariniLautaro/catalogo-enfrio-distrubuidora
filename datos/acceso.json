@@ -1,8 +1,18 @@
 {
- "sal": "/vICfcR/Ou2Dw1/AcA0Gpw==",
- "vueltas": 600000,
- "secreto": {
-  "iv": "2DCbnG9Dg8o3IaW2",
-  "datos": "TgDpC0j/PP4GQ4fd7GZhiLm13fuSVI5ZCi5R0OEiR6NfvJnp7GktF2vi2GVjOqJVwP6kHjnl1WidxtF6i8f1E8V+Lwyfg4nPOUA+PXcc9U1fb4PA8atTEwl9o6j6eyes0Ih0Pra3B2KUSotl7TQI3gcabYOVUWIu+5l3TOJCglGLlpi159eKE17iDKo93Ok4LIDRpZOCMIkQoFPTuS7D1grwCgoH10uMl1Tj8Z7D6WZ7xmplFw=="
+ "negocio": {
+  "sal": "/vICfcR/Ou2Dw1/AcA0Gpw==",
+  "vueltas": 600000,
+  "secreto": {
+   "iv": "2DCbnG9Dg8o3IaW2",
+   "datos": "TgDpC0j/PP4GQ4fd7GZhiLm13fuSVI5ZCi5R0OEiR6NfvJnp7GktF2vi2GVjOqJVwP6kHjnl1WidxtF6i8f1E8V+Lwyfg4nPOUA+PXcc9U1fb4PA8atTEwl9o6j6eyes0Ih0Pra3B2KUSotl7TQI3gcabYOVUWIu+5l3TOJCglGLlpi159eKE17iDKo93Ok4LIDRpZOCMIkQoFPTuS7D1grwCgoH10uMl1Tj8Z7D6WZ7xmplFw=="
+  }
+ },
+ "recuperacion": {
+  "sal": "+YJvxLNXmxDYHgOjO66flQ==",
+  "vueltas": 600000,
+  "secreto": {
+   "iv": "AXUo/MG6ILvSZxi5",
+   "datos": "eoQ96oOYacwBvU0rc0HlJT3qCG8jYf1eD+eTSnGiMJtYh0SiiJ0FaqSuDimZ25AlQtrJba8o9088pH7c0Slksq08YMNqu1FmF67DW1w="
+  }
  }
 }
